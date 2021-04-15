@@ -1,12 +1,12 @@
 let ball_1;
 let borde;
-let dt = 1/30;
+let dt = 1/50;
 
 function setup() {
   //canvas = createCanvas(windowWidth, windowHeight);
   canvas = createCanvas(500,250);
   frameRate(30);
-  ball_1 = new ball(5,20,createVector(0,0),createVector(50,0));
+  ball_1 = new ball(5,20,createVector(0,0),createVector(50,50));
   borde = new border();
 }
 
@@ -15,6 +15,7 @@ function draw() {
   background(128,64,0);
   borde.mostrar();
 
+ball_1.collision();
   ball_1.movimiento();
   ball_1.mostrar(); 
   
@@ -37,11 +38,24 @@ let ball = function(_mass, _rad, _pos, _vel){
     this.pos.x += this.vel.x*dt;
     this.pos.y += this.vel.y*dt;
   }
+
+  this.collision=function(){
+if ((this.pos.x<-248+this.radio) || (this.pos.x>248-this.radio)){
+this.vel.x*=-1;
+}
+
+if ((this.pos.y<-125+this.radio) || (this.pos.y>125-this.radio)){
+  this.vel.y*=-1;
+  }
+
+  }
+
+
 }
 
 let border = function(){
   this.mostrar = function() {
-    noStroke(); //elimina el borde negro
+    //noStroke(); //elimina el borde negro
     fill(0,143,57);
     rect(-240,-115,480,230);
     //stroke(100);
