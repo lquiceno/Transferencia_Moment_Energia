@@ -1,12 +1,14 @@
-let ball_1;
-let borde;
-let dt = 1/50;
+
+let dt = 1/30;
 
 function setup() {
   //canvas = createCanvas(windowWidth, windowHeight);
   canvas = createCanvas(500,250);
   frameRate(30);
   ball_1 = new ball(5,20,createVector(0,0),createVector(50,50));
+ ball_2=new ball(5,20,createVector(40,80),createVector(-50,-50));
+ ball_3 = new ball(5,20,createVector(76,0),createVector(19,60));
+ ball_4 = new ball(5,20,createVector(94,0),createVector(5,14));
   borde = new border();
 }
 
@@ -18,7 +20,18 @@ function draw() {
 ball_1.collision();
   ball_1.movimiento();
   ball_1.mostrar(); 
+
+  ball_2.collision();
+  ball_2.movimiento();
+  ball_2.mostrar();
   
+  ball_3.collision();
+  ball_3.movimiento();
+  ball_3.mostrar();
+  
+  ball_4.collision();
+  ball_4.movimiento();
+  ball_4.mostrar();
 }
 
 let ball = function(_mass, _rad, _pos, _vel){
