@@ -5,8 +5,8 @@ function setup() {
   //canvas = createCanvas(windowWidth, windowHeight);
   canvas = createCanvas(500,250);
   frameRate(30);
-  ball_1 = new ball(5,20,createVector(100,0),createVector(-50,0));
- ball_2=new ball(20,40,createVector(-100,0),createVector(50,0));
+  ball_1 = new ball(5,20,createVector(100,0),createVector(-50,50));
+ ball_2=new ball(20,40,createVector(-100,0),createVector(50,-20));
 
   borde = new border();
 }
@@ -21,7 +21,7 @@ function draw() {
   
   ball_1.collision();
   ball_2.collision();
-  
+
   ball_1.ballscollision();
 
   ball_1.movimiento();
