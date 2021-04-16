@@ -1,14 +1,13 @@
 
-let dt = 1/30;
+let dt = 1/10;
 
 function setup() {
   //canvas = createCanvas(windowWidth, windowHeight);
   canvas = createCanvas(500,250);
   frameRate(30);
-  ball_1 = new ball(5,20,createVector(0,0),createVector(50,50));
- ball_2=new ball(5,20,createVector(40,80),createVector(-50,-50));
- ball_3 = new ball(5,20,createVector(76,0),createVector(19,60));
- ball_4 = new ball(5,20,createVector(94,0),createVector(5,14));
+  ball_1 = new ball(5,20,createVector(100,0),createVector(-50,0));
+ ball_2=new ball(20,40,createVector(-100,0),createVector(50,0));
+
   borde = new border();
 }
 
@@ -17,21 +16,22 @@ function draw() {
   background(128,64,0);
   borde.mostrar();
 
-ball_1.collision();
-  ball_1.movimiento();
-  ball_1.mostrar(); 
 
+
+  
+  ball_1.collision();
   ball_2.collision();
+  
+  ball_1.ballscollision();
+
+  ball_1.movimiento();
   ball_2.movimiento();
+
+  ball_1.mostrar(); 
   ball_2.mostrar();
+
   
-  ball_3.collision();
-  ball_3.movimiento();
-  ball_3.mostrar();
-  
-  ball_4.collision();
-  ball_4.movimiento();
-  ball_4.mostrar();
+ 
 }
 
 let ball = function(_mass, _rad, _pos, _vel){
@@ -43,7 +43,7 @@ let ball = function(_mass, _rad, _pos, _vel){
   this.mostrar = function() {
     noStroke(); //elimina el borde negro
     fill(229,190,1);
-    ellipse(this.pos.x, this.pos.y, this.radio, this.rad);
+    ellipse(this.pos.x, this.pos.y, this.radio, this.radio);
     stroke(25);
   }
 
@@ -62,9 +62,24 @@ if ((this.pos.y<-125+this.radio) || (this.pos.y>125-this.radio)){
   }
 
   }
-
+//caso colision elastica entre bolas
+this.ballscollision=function(){
+  let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
+  let u= createVector((ball_1.pos.x-ball_2.pos.x)/d,(ball_1.pos.y-ball_2.pos.y)/d);
+  let a= ((2*ball_1.mass*ball_2.mass)/(ball_1.mass+ball_2.mass))*((ball_2.vel.x-ball_1.vel.x)*u.x+(ball_2.vel.y-ball_1.vel.y)*u.y);
+  if(d<(ball_1.radio+ball_2.radio)){
+  
+  
+  ball_1.vel.x=ball_1.vel.x+(a/ball_1.mass)*u.x;
+  ball_1.vel.y=ball_1.vel.y+(a/ball_1.mass)*u.y;
+  ball_2.vel.x=ball_2.vel.x-(a/ball_2.mass)*u.x;
+  ball_2.vel.y=ball_2.vel.y-(a/ball_2.mass)*u.y;
+}
+}
 
 }
+
+
 
 let border = function(){
   this.mostrar = function() {
