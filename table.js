@@ -1,11 +1,11 @@
 
 let dt = 1/10;
-let phi=70; //porcentaje de elasticidad 
+let phi=100; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
 //Modificacion del main
 //EXPERIMENTING BRANCHES
 let balls=[];
-let N=6; //number of balls
+let N=3; //number of balls
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
 canvas = createCanvas(500,250);
@@ -18,6 +18,7 @@ let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
 if(di<=balls[i].radio){
 balls[i].pos.x+=2*balls[i].radio;
   }
+
 }
 }
 
