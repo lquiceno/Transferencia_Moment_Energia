@@ -1,16 +1,15 @@
 
 let dt = 1/10;
-let phi=1; //porcentaje de elasticidad 
+let phi=40; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
-
 
 
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
 canvas = createCanvas(500,250);
 frameRate(100);
-ball_1 = new ball(1,10,createVector(0,50),createVector(30,70));
-ball_2= new ball(2,20,createVector(0,-50),createVector(-40,-70));
+ball_1 = new ball(1,10,createVector(0,50),createVector(0,70));
+ball_2= new ball(2,20,createVector(0,-50),createVector(0,-70));
 
 borde = new border();
 }
@@ -56,10 +55,10 @@ let ball = function(_mass, _rad, _pos, _vel){
   }
 
   this.collision=function(){
-if ((this.pos.x<-248+this.radio) || (this.pos.x>248-this.radio)){
+if ((this.pos.x<-240+this.radio) || (this.pos.x>240-this.radio)){
 this.vel.x*=-1;
 }
-if ((this.pos.y<-125+this.radio) || (this.pos.y>125-this.radio)){
+if ((this.pos.y<-115+this.radio) || (this.pos.y>115-this.radio)){
   this.vel.y*=-1;
   }
 
@@ -84,7 +83,6 @@ let A= sq((ball_1.mass+ball_2.mass)/(ball_1.mass*ball_2.mass));
 let B=2*((ball_1.mass+ball_2.mass)/(ball_1.mass*ball_2.mass))*(((ball_1.vel.x-ball_2.vel.x)*u.x)+((ball_1.vel.y-ball_2.vel.y)*u.y));
 let C=(1-sq(k))*sq(dist(ball_1.vel.x,ball_1.vel.y,ball_2.vel.x,ball_2.vel.y));
 let D=sq(B)-4*A*C;
-print(ball_1.vel.x,ball_2.vel.x,ball_1.vel.y,ball_2.vel.y,C);
 if(D<0){
   
   ball_1.vel.x=0;
