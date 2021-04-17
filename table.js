@@ -2,7 +2,7 @@
 let dt = 1/10;
 let phi=70; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
-
+//Modificacion del main
 //EXPERIMENTING BRANCHES
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
