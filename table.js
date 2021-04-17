@@ -12,7 +12,7 @@ canvas = createCanvas(500,250);
 frameRate(100);
 
 for(let i=0; i<N;i++){
-balls.push(new ball(random(1,10),random(10,20),createVector(random(-200,200),random(-100,100)),createVector(random(-50,50),random(-50,50))));
+balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-200,200),random(-100,100)),createVector(random(-50,50),random(-50,50))));
 for(let j=0; j<i;j++){
 let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
 if(di<=balls[i].radio){
@@ -43,7 +43,7 @@ inelasticballscollision(balls[i],balls[j]);
 
 }
 
-let ball = function(_mass, _rad, _pos, _vel){
+let ball = function(i, _mass, _rad, _pos, _vel){
   this.mass = _mass;
   this.radio = _rad;
   this.pos = _pos;
@@ -51,7 +51,27 @@ let ball = function(_mass, _rad, _pos, _vel){
 
   this.mostrar = function() {
     noStroke(); //elimina el borde negro
-    fill(229,190,1);
+    switch (i) {
+      case 0:
+        fill	(255, 233, 0);
+        break;
+      case 1:
+        fill(255, 0, 0);
+        break;
+      case 2:
+        fill(0,0,255);
+        break;
+      case 3:
+        fill(87,35,100);
+        break;
+      case 4:
+        fill(255,128,0);
+        break;
+      case 5:
+        fill(255,177,187);
+        break;
+    }
+    
     ellipse(this.pos.x, this.pos.y, 2*this.radio, 2*this.radio); //en realidad ellipse toma el ancho y alto total de la elipse, en este caso sería el diametro
     stroke(25);
   }
