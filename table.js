@@ -4,12 +4,22 @@ let phi=70; //porcentaje de elasticidad
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
 //Modificacion del main
 //EXPERIMENTING BRANCHES
+let balls=[];
+let N=6; //number of balls
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
 canvas = createCanvas(500,250);
 frameRate(100);
-ball_1 = new ball(1,10,createVector(0,50),createVector(0,70));
-ball_2= new ball(2,20,createVector(0,-50),createVector(0,-70));
+
+for(let i=0; i<N;i++){
+balls.push(new ball(random(1,10),random(10,20),createVector(random(-200,200),random(-100,100)),createVector(random(-50,50),random(-50,50))));
+for(let j=0; j<i;j++){
+let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
+if(di<=balls[i].radio){
+balls[i].pos.x+=2*balls[i].radio;
+  }
+}
+}
 
 borde = new border();
 }
@@ -19,21 +29,18 @@ function draw() {
   background(128,64,0);
   borde.mostrar();
 
+for(let i=0; i<N;i++){
+balls[i].movimiento();
+balls[i].mostrar();
+balls[i].collision();
+for(let j=0;j<N;j++){
+let dis=dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
+if(i !==j && dis<=balls[i].radio+balls[j].radio){
+inelasticballscollision(balls[i],balls[j]);
+}
+}
+}
 
-  ball_1.movimiento();
-  ball_2.movimiento();
-
-  ball_1.mostrar(); 
-  ball_2.mostrar();
-  
-  ball_1.collision();
-  ball_2.collision();
-  
-
-  let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
-  if(d<=ball_1.radio+ball_2.radio){
-  inelasticballscollision();
-  }
 }
 
 let ball = function(_mass, _rad, _pos, _vel){
@@ -69,26 +76,27 @@ if ((this.pos.y<-115+this.radio) || (this.pos.y>115-this.radio)){
 
 
 
-inelasticballscollision=function(){
+inelasticballscollision=function(object1,object2){
 
   
 
 
-let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
-let u= createVector((ball_1.pos.x-ball_2.pos.x)/(d),(ball_1.pos.y-ball_2.pos.y)/(d));
-let s= createVector((ball_1.vel.x-ball_2.vel.x)/(dist(ball_1.vel.x,ball_1.vel.y,ball_2.vel.x,ball_2.vel.y)),(ball_1.vel.y-ball_2.vel.y)/(dist(ball_1.vel.x,ball_1.vel.y,ball_2.vel.x,ball_2.vel.y)));
+let d=dist(object1.pos.x,object1.pos.y,object2.pos.x,object2.pos.y);
+let u= createVector((object1.pos.x-object2.pos.x)/(d),(object1.pos.y-object2.pos.y)/(d));
+let s= createVector((object1.vel.x-object2.vel.x)/(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y)),(object1.vel.y-object2.vel.y)/(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y)));
 let kmin=sqrt(1-sq((s.x*u.x)+(s.y*u.y)));
 let k=(phi/100)+((1-(phi/100))*kmin);
-let A= sq((ball_1.mass+ball_2.mass)/(ball_1.mass*ball_2.mass));
-let B=2*((ball_1.mass+ball_2.mass)/(ball_1.mass*ball_2.mass))*(((ball_1.vel.x-ball_2.vel.x)*u.x)+((ball_1.vel.y-ball_2.vel.y)*u.y));
-let C=(1-sq(k))*sq(dist(ball_1.vel.x,ball_1.vel.y,ball_2.vel.x,ball_2.vel.y));
+let A= sq((object1.mass+object2.mass)/(object1.mass*object2.mass));
+let B=2*((object1.mass+object2.mass)/(object1.mass*object2.mass))*(((object1.vel.x-object2.vel.x)*u.x)+((object1.vel.y-object2.vel.y)*u.y));
+let C=(1-sq(k))*sq(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y));
 let D=sq(B)-4*A*C;
+print(D);
 if(D<0){
   
-  ball_1.vel.x=0;
-  ball_1.vel.y=0;
-  ball_2.vel.x=0;
-  ball_2.vel.y=0;
+  object1.vel.x=0;
+  object1.vel.y=0;
+  object2.vel.x=0;
+  object2.vel.y=0;
 
 }else{
 let a1=(-B+sqrt(sq(B)-4*A*C))/(2*A);
@@ -96,10 +104,10 @@ let a2=(-B-sqrt(sq(B)-4*A*C))/(2*A);
 let a=max(a1,a2);
  
   
-    ball_1.vel.x+=(a/ball_1.mass)*u.x;
-    ball_1.vel.y+=(a/ball_1.mass)*u.y;
-    ball_2.vel.x-=(a/ball_2.mass)*u.x;
-    ball_2.vel.y-=(a/ball_2.mass)*u.y;
+object1.vel.x+=(a/object1.mass)*u.x;
+object1.vel.y+=(a/object1.mass)*u.y;
+object2.vel.x-=(a/object2.mass)*u.x;
+object2.vel.y-=(a/object2.mass)*u.y;
   
 }
 }
