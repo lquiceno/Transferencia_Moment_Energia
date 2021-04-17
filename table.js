@@ -5,7 +5,7 @@ function setup() {
   //canvas = createCanvas(windowWidth, windowHeight);
   canvas = createCanvas(500,250);
   frameRate(30);
-  ball_1 = new ball(5,20,createVector(100,0),createVector(-50,50));
+  ball_1 = new ball(10,20,createVector(100,0),createVector(-50,50));
  ball_2=new ball(20,40,createVector(-100,0),createVector(50,-20));
 
   borde = new border();
@@ -22,7 +22,7 @@ function draw() {
   ball_1.collision();
   ball_2.collision();
 
-  ball_1.ballscollision();
+  ballscollision();
 
   ball_1.movimiento();
   ball_2.movimiento();
@@ -62,8 +62,11 @@ if ((this.pos.y<-125+this.radio) || (this.pos.y>125-this.radio)){
   }
 
   }
+
+}
+
 //caso colision elastica entre bolas
-this.ballscollision=function(){
+ballscollision=function(){
   let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
   let u= createVector((ball_1.pos.x-ball_2.pos.x)/d,(ball_1.pos.y-ball_2.pos.y)/d);
   let a= ((2*ball_1.mass*ball_2.mass)/(ball_1.mass+ball_2.mass))*((ball_2.vel.x-ball_1.vel.x)*u.x+(ball_2.vel.y-ball_1.vel.y)*u.y);
@@ -75,8 +78,6 @@ this.ballscollision=function(){
   ball_2.vel.x=ball_2.vel.x-(a/ball_2.mass)*u.x;
   ball_2.vel.y=ball_2.vel.y-(a/ball_2.mass)*u.y;
 }
-}
-
 }
 
 
