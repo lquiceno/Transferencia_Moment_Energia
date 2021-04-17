@@ -22,7 +22,7 @@ function draw() {
   ball_1.collision();
   ball_2.collision();
 
-  ballscollision();
+  elasticballscollision();
 
   ball_1.movimiento();
   ball_2.movimiento();
@@ -66,7 +66,7 @@ if ((this.pos.y<-125+this.radio) || (this.pos.y>125-this.radio)){
 }
 
 //caso colision elastica entre bolas
-ballscollision=function(){
+elasticballscollision=function(){
   let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
   let u= createVector((ball_1.pos.x-ball_2.pos.x)/d,(ball_1.pos.y-ball_2.pos.y)/d);
   let a= ((2*ball_1.mass*ball_2.mass)/(ball_1.mass+ball_2.mass))*((ball_2.vel.x-ball_1.vel.x)*u.x+(ball_2.vel.y-ball_1.vel.y)*u.y);
