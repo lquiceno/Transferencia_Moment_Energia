@@ -1,6 +1,6 @@
 
 let dt = 1/10;
-let phi=1; //porcentaje de elasticidad k=phi/100 donde k es el coeficiente de restitucion k=|vf-wf|/|vi-wi|
+let phi=1; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
 
 
