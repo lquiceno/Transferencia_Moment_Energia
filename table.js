@@ -90,7 +90,6 @@ let A= sq((object1.mass+object2.mass)/(object1.mass*object2.mass));
 let B=2*((object1.mass+object2.mass)/(object1.mass*object2.mass))*(((object1.vel.x-object2.vel.x)*u.x)+((object1.vel.y-object2.vel.y)*u.y));
 let C=(1-sq(k))*sq(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y));
 let D=sq(B)-4*A*C;
-print(D);
 if(D<0){
   
   object1.vel.x=0;
