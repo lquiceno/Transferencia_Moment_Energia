@@ -1,14 +1,18 @@
 
 let dt = 1/10;
+let phi=1; //porcentaje de elasticidad k=phi/100 donde k es el coeficiente de restitucion k=|vf-wf|/|vi-wi|
+//choque completamente elastico k=1, choque completamente inelastico k=0
+
+
 
 function setup() {
-  //canvas = createCanvas(windowWidth, windowHeight);
-  canvas = createCanvas(500,250);
-  frameRate(30);
-  ball_1 = new ball(10,20,createVector(100,0),createVector(-50,50));
- ball_2=new ball(20,40,createVector(-100,0),createVector(50,-20));
+//canvas = createCanvas(windowWidth, windowHeight);
+canvas = createCanvas(500,250);
+frameRate(100);
+ball_1 = new ball(1,10,createVector(0,50),createVector(30,70));
+ball_2= new ball(2,20,createVector(0,-50),createVector(-40,-70));
 
-  borde = new border();
+borde = new border();
 }
 
 function draw() {
@@ -17,21 +21,20 @@ function draw() {
   borde.mostrar();
 
 
-
-  
-  ball_1.collision();
-  ball_2.collision();
-
-  elasticballscollision();
-
   ball_1.movimiento();
   ball_2.movimiento();
 
   ball_1.mostrar(); 
   ball_2.mostrar();
-
   
- 
+  ball_1.collision();
+  ball_2.collision();
+  
+
+  let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
+  if(d<=ball_1.radio+ball_2.radio){
+  inelasticballscollision();
+  }
 }
 
 let ball = function(_mass, _rad, _pos, _vel){
@@ -43,7 +46,7 @@ let ball = function(_mass, _rad, _pos, _vel){
   this.mostrar = function() {
     noStroke(); //elimina el borde negro
     fill(229,190,1);
-    ellipse(this.pos.x, this.pos.y, this.radio, this.radio);
+    ellipse(this.pos.x, this.pos.y, 2*this.radio, 2*this.radio); //en realidad ellipse toma el ancho y alto total de la elipse, en este caso sería el diametro
     stroke(25);
   }
 
@@ -56,7 +59,6 @@ let ball = function(_mass, _rad, _pos, _vel){
 if ((this.pos.x<-248+this.radio) || (this.pos.x>248-this.radio)){
 this.vel.x*=-1;
 }
-
 if ((this.pos.y<-125+this.radio) || (this.pos.y>125-this.radio)){
   this.vel.y*=-1;
   }
@@ -65,18 +67,42 @@ if ((this.pos.y<-125+this.radio) || (this.pos.y>125-this.radio)){
 
 }
 
-//caso colision elastica entre bolas
-elasticballscollision=function(){
-  let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
-  let u= createVector((ball_1.pos.x-ball_2.pos.x)/d,(ball_1.pos.y-ball_2.pos.y)/d);
-  let a= ((2*ball_1.mass*ball_2.mass)/(ball_1.mass+ball_2.mass))*((ball_2.vel.x-ball_1.vel.x)*u.x+(ball_2.vel.y-ball_1.vel.y)*u.y);
-  if(d<(ball_1.radio+ball_2.radio)){
+
+
+
+inelasticballscollision=function(){
+
   
+
+
+let d=dist(ball_1.pos.x,ball_1.pos.y,ball_2.pos.x,ball_2.pos.y);
+let u= createVector((ball_1.pos.x-ball_2.pos.x)/(d),(ball_1.pos.y-ball_2.pos.y)/(d));
+let s= createVector((ball_1.vel.x-ball_2.vel.x)/(dist(ball_1.vel.x,ball_1.vel.y,ball_2.vel.x,ball_2.vel.y)),(ball_1.vel.y-ball_2.vel.y)/(dist(ball_1.vel.x,ball_1.vel.y,ball_2.vel.x,ball_2.vel.y)));
+let kmin=sqrt(1-sq((s.x*u.x)+(s.y*u.y)));
+let k=(phi/100)+((1-(phi/100))*kmin);
+let A= sq((ball_1.mass+ball_2.mass)/(ball_1.mass*ball_2.mass));
+let B=2*((ball_1.mass+ball_2.mass)/(ball_1.mass*ball_2.mass))*(((ball_1.vel.x-ball_2.vel.x)*u.x)+((ball_1.vel.y-ball_2.vel.y)*u.y));
+let C=(1-sq(k))*sq(dist(ball_1.vel.x,ball_1.vel.y,ball_2.vel.x,ball_2.vel.y));
+let D=sq(B)-4*A*C;
+print(ball_1.vel.x,ball_2.vel.x,ball_1.vel.y,ball_2.vel.y,C);
+if(D<0){
   
-  ball_1.vel.x=ball_1.vel.x+(a/ball_1.mass)*u.x;
-  ball_1.vel.y=ball_1.vel.y+(a/ball_1.mass)*u.y;
-  ball_2.vel.x=ball_2.vel.x-(a/ball_2.mass)*u.x;
-  ball_2.vel.y=ball_2.vel.y-(a/ball_2.mass)*u.y;
+  ball_1.vel.x=0;
+  ball_1.vel.y=0;
+  ball_2.vel.x=0;
+  ball_2.vel.y=0;
+
+}else{
+let a1=(-B+sqrt(sq(B)-4*A*C))/(2*A);
+let a2=(-B-sqrt(sq(B)-4*A*C))/(2*A); 
+let a=max(a1,a2);
+ 
+  
+    ball_1.vel.x+=(a/ball_1.mass)*u.x;
+    ball_1.vel.y+=(a/ball_1.mass)*u.y;
+    ball_2.vel.x-=(a/ball_2.mass)*u.x;
+    ball_2.vel.y-=(a/ball_2.mass)*u.y;
+  
 }
 }
 
