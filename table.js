@@ -1,18 +1,21 @@
 
 let dt = 1/10;
-let phi=100; //porcentaje de elasticidad 
+let phi=80; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
 //Modificacion del main
 //EXPERIMENTING BRANCHES
 let balls=[];
-let N=3; //number of balls
+let N=3;//number of balls
+let l=100; //height for displaying buttons
+let w=window.innerWidth;
+let h=window.innerHeight-l; 
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
-canvas = createCanvas(500,250);
+canvas = createCanvas(w,h);
 frameRate(100);
 
 for(let i=0; i<N;i++){
-balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-200,200),random(-100,100)),createVector(random(-50,50),random(-50,50))));
+balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
 for(let j=0; j<i;j++){
 let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
 if(di<=balls[i].radio){
@@ -26,9 +29,10 @@ borde = new border();
 }
 
 function draw() {
-  translate(250,125);
+  translate(w/2,h/2);
   background(128,64,0);
   borde.mostrar();
+  
 
 for(let i=0; i<N;i++){
 balls[i].movimiento();
@@ -41,6 +45,7 @@ inelasticballscollision(balls[i],balls[j]);
 }
 }
 }
+
 
 }
 
@@ -83,10 +88,10 @@ let ball = function(i, _mass, _rad, _pos, _vel){
   }
 
   this.collision=function(){
-if ((this.pos.x<-240+this.radio) || (this.pos.x>240-this.radio)){
+if ((this.pos.x<-w/2+10+this.radio) || (this.pos.x>w/2-10-this.radio)){
 this.vel.x*=-1;
 }
-if ((this.pos.y<-115+this.radio) || (this.pos.y>115-this.radio)){
+if ((this.pos.y<-h/2+10+this.radio) || (this.pos.y>h/2-10-this.radio)){
   this.vel.y*=-1;
   }
 
@@ -138,9 +143,12 @@ let border = function(){
   this.mostrar = function() {
     //noStroke(); //elimina el borde negro
     fill(0,143,57);
-    rect(-240,-115,480,230);
+    rect(-w/2+10,-h/2+10,2*(w/2-10),2*(h/2-10));
     //stroke(100);
 
   }
 }
+
+
+
   
