@@ -32,8 +32,7 @@ function draw() {
   translate(w/2,h/2);
   background(128,64,0);
   borde.mostrar();
-  
-
+   
 for(let i=0; i<N;i++){
 balls[i].movimiento();
 balls[i].mostrar();
