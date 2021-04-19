@@ -17,11 +17,17 @@ function setup() {
 canvas = createCanvas(w,h);
 button=createButton('reset');
 button.mousePressed(resetSketch);
+
 sliderx = createSlider(0, 6, 0);
-sliderx.position(w/2 - 75, h+ l/2);
+sliderx.position(w/3, h+ l/2);
 sliderx.style('width', '150px');
 
+slidery = createSlider(0.1, 100, 100);
+slidery.position(2*w/3, h+ l/2);
+slidery.style('width', '150px');
+
 sliderx.changed(resetSketch);
+slidery.changed(resetSketch);
 
 resetSketch();
 }
@@ -30,6 +36,7 @@ function resetSketch() {
   frameRate(100);
   balls=[];
   N=sliderx.value();
+  phi=slidery.value();
   for(let i=0; i<N;i++){
   balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
   for(let j=0; j<i;j++){
