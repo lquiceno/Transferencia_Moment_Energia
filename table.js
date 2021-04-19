@@ -5,27 +5,42 @@ let phi=80; //porcentaje de elasticidad
 //Modificacion del main
 //EXPERIMENTING BRANCHES
 let balls=[];
-let N=3;//number of balls
+let N=4;//number of balls
 let l=100; //height for displaying buttons
 let w=window.innerWidth;
 let h=window.innerHeight-l; 
+
+
+
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
 canvas = createCanvas(w,h);
-frameRate(100);
+button=createButton('reset');
+button.mousePressed(resetSketch);
+sliderx = createSlider(0, 6, 0);
+sliderx.position(w/2 - 75, h+ l/2);
+sliderx.style('width', '150px');
 
-for(let i=0; i<N;i++){
-balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
-for(let j=0; j<i;j++){
-let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
-if(di<=balls[i].radio){
-balls[i].pos.x+=2*balls[i].radio;
+sliderx.changed(resetSketch);
+
+resetSketch();
+}
+
+function resetSketch() {
+  frameRate(100);
+  balls=[];
+  N=sliderx.value();
+  for(let i=0; i<N;i++){
+  balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
+  for(let j=0; j<i;j++){
+  let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
+  if(di<=balls[i].radio){
+  balls[i].pos.x+=2*balls[i].radio;
+    }
+  
   }
-
-}
-}
-
-borde = new border();
+  }
+  borde = new border();
 }
 
 function draw() {
