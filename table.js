@@ -1,11 +1,11 @@
 
 let dt = 1/10;
-let phi=80; //porcentaje de elasticidad 
+//let phi=80; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
 //Modificacion del main
 //EXPERIMENTING BRANCHES
 let balls=[];
-let N=4;//number of balls
+//let N=4;//number of balls
 let l=100; //height for displaying buttons
 let w=window.innerWidth;
 let h=window.innerHeight-l; 
@@ -18,11 +18,17 @@ canvas = createCanvas(w,h);
 button=createButton('reset');
 button.mousePressed(resetSketch);
 
-sliderx = createSlider(0, 6, 0);
+p1=createP('Numero de Bolas');
+p1.position(w/3+25,h+l/5);
+
+p2=createP('Porcentaje de Elasticidad');
+p2.position(2*w/3,h+l/5);
+
+sliderx = createSlider(0, 6, 3);
 sliderx.position(w/3, h+ l/2);
 sliderx.style('width', '150px');
 
-slidery = createSlider(0.1, 100, 100);
+slidery = createSlider(0.1, 100, 50);
 slidery.position(2*w/3, h+ l/2);
 slidery.style('width', '150px');
 
@@ -54,6 +60,7 @@ function draw() {
   translate(w/2,h/2);
   background(128,64,0);
   borde.mostrar();
+  
    
 for(let i=0; i<N;i++){
 balls[i].movimiento();
