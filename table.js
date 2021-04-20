@@ -1,12 +1,13 @@
-
 let dt = 1/10;
-//let phi=80; //porcentaje de elasticidad 
+//culo
+//si phi=80; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
 //Modificacion del main
-//EXPERIMENTING BRANCHES
-let balls=[];
-//let N=4;//number of balls
-let l=100; //height for displaying buttons
+
+let balls=[]; //arreglo vacio bolas
+//si N=4; cuatro bolas 
+let l=100; //altura para mostrar botones
+//crea pantalla
 let w=window.innerWidth;
 let h=window.innerHeight-l; 
 
@@ -14,19 +15,22 @@ let h=window.innerHeight-l;
 
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
+//crea botones para interaccion con usuario
 canvas = createCanvas(w,h);
-button=createButton('reset');
+button=createButton('Restaurar');
 button.mousePressed(resetSketch);
 
+//barra de bolas
 p1=createP('Numero de Bolas');
-p1.position(w/3+25,h+l/5);
+p1.position(w/3+25,h+l/5); //posicion barra
 
+//barra elasticidad
 p2=createP('Porcentaje de Elasticidad');
-p2.position(2*w/3,h+l/5);
+p2.position(2*w/3,h+l/5); //posicion barra
 
-sliderx = createSlider(0, 6, 3);
-sliderx.position(w/3, h+ l/2);
-sliderx.style('width', '150px');
+sliderx = createSlider(0, 6, 3); //controla numero de bolas, si el usuario crea mas, las crea del mismo color
+sliderx.position(w/3, h+ l/2); //posicion
+sliderx.style('width', '150px'); //color
 
 slidery = createSlider(0.1, 100, 50);
 slidery.position(2*w/3, h+ l/2);
@@ -40,9 +44,10 @@ resetSketch();
 
 function resetSketch() {
   frameRate(100);
-  balls=[];
-  N=sliderx.value();
-  phi=slidery.value();
+  balls=[]; //bolas
+  N=sliderx.value(); //numero bolas
+  phi=slidery.value(); //porcentaje ealsticidad
+  //crea las bolas y las pone en lugar aleatorio
   for(let i=0; i<N;i++){
   balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
   for(let j=0; j<i;j++){
@@ -53,7 +58,8 @@ function resetSketch() {
   
   }
   }
-  borde = new border();
+  //se crea el borde la imagen  
+  borde = new border(); 
 }
 
 function draw() {
@@ -61,14 +67,15 @@ function draw() {
   background(128,64,0);
   borde.mostrar();
   
-   
+   //for recorre numero de bolas
 for(let i=0; i<N;i++){
-balls[i].movimiento();
-balls[i].mostrar();
-balls[i].collision();
+balls[i].movimiento(); //llama a la funcion movimiento y la aplica a cada bola
+balls[i].mostrar(); //llama a mostrar para que aparezca pantalla
+balls[i].collision(); //llama funcion colision encargada de colision de bolas
 for(let j=0;j<N;j++){
+  //cambia movimiento de las bolas segun su radio
 let dis=dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
-if(i !==j && dis<=balls[i].radio+balls[j].radio){
+if(i !==j && dis<=balls[i].radio+balls[j].radio){ // condicion si dos bolas chocan
 inelasticballscollision(balls[i],balls[j]);
 }
 }
@@ -76,13 +83,13 @@ inelasticballscollision(balls[i],balls[j]);
 
 
 }
-
+//llama las caracteristicas fisicas de la bola
 let ball = function(i, _mass, _rad, _pos, _vel){
   this.mass = _mass;
   this.radio = _rad;
   this.pos = _pos;
   this.vel = _vel;
-
+//switch escoge las bolas para ingresar a cada una caracteristicas
   this.mostrar = function() {
     noStroke(); //elimina el borde negro
     switch (i) {
@@ -109,12 +116,12 @@ let ball = function(i, _mass, _rad, _pos, _vel){
     ellipse(this.pos.x, this.pos.y, 2*this.radio, 2*this.radio); //en realidad ellipse toma el ancho y alto total de la elipse, en este caso sería el diametro
     stroke(25);
   }
-
+//funcion movimiento la cual cambia posicion usando ec. Cinematica x = vt
   this.movimiento = function(){
     this.pos.x += this.vel.x*dt;
     this.pos.y += this.vel.y*dt;
   }
-
+//funcion colision que cambia velocidad
   this.collision=function(){
 if ((this.pos.x<-w/2+10+this.radio) || (this.pos.x>w/2-10-this.radio)){
 this.vel.x*=-1;
@@ -168,6 +175,7 @@ object2.vel.y-=(a/object2.mass)*u.y;
 
 
 let border = function(){
+  //funcion mostrar para aparecer el lienzo 
   this.mostrar = function() {
     //noStroke(); //elimina el borde negro
     fill(0,143,57);
