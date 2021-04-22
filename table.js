@@ -3,6 +3,7 @@ let dt = 1/10;
 //si phi=80; //porcentaje de elasticidad 
 //choque completamente elastico phi=100, choque completamente inelastico phi=0
 //Modificacion del main
+//Electroencefalografista
 
 let balls=[]; //arreglo vacio bolas
 //si N=4; cuatro bolas 
