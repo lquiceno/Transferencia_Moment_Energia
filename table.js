@@ -21,29 +21,32 @@ button.mousePressed(resetSketch);
 //barra de bolas
 p1=createP('Número de bolas');
 p1.position(w/3+25,h+l/5); //posicion barra
-
-//barra elasticidad
-p2=createP('Porcentaje de elasticidad');
-p2.position(2*w/3,h+l/5); //posicion barra
-
 sliderx = createSlider(0, 6, 3); //controla numero de bolas
 sliderx.position(w/3, h+ l/2); //posicion
 sliderx.style('width', '150px'); //color
 
+//barra elasticidad
+p2=createP('Porcentaje de elasticidad');
+p2.position(2*w/3,h+l/5); //posicion barra
 slidery = createSlider(0.1, 100, 50);
 slidery.position(2*w/3, h+ l/2);
 slidery.style('width', '150px');
 
 //barra fricción
 p3 = createP('Coef. de fricción');
-p3.position(2*w/3-320,h+l/5);
-sliderz = createSlider(0, 1, 1, 0.01);
+p3.position(w-1200,h+l/5);
+sliderz = createSlider(0, 1, 0, 0.01);
+sliderz.position(w-1200, h+ l/2);
 sliderz.style('width', '150px');
+//text("Freq Y = " + nfc(b, 2), 120,l+190);
+
+
 
 
 sliderx.changed(resetSketch);
 slidery.changed(resetSketch);
 sliderz.changed(resetSketch);
+
 
 resetSketch();
 
@@ -57,7 +60,7 @@ function resetSketch() {
   b=sliderz.value(); //coef. de fricción
   //crea las bolas y las pone en lugar aleatorio
   for(let i=0; i<N;i++){
-  balls.push(new ball(i, random(1,10),random(10,20),createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
+  balls.push(new ball(i, random(1,10),12,createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
   for(let j=0; j<i;j++){
   let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
   if(di<=balls[i].radio){
@@ -74,19 +77,22 @@ function draw() {
   translate(w/2,h/2);
   background(128,64,0);
   borde.mostrar();
+  //p6 = createP(nfc(sliderz.value(),2));
+  //p6.position(w-1040,h+l/4);
   
    //for recorre numero de bolas
-for(let i=0; i<N;i++){
-balls[i].movimiento(); //llama a la funcion movimiento y la aplica a cada bola
-balls[i].mostrar(); //llama a mostrar para que aparezca pantalla
-balls[i].collision(); //llama funcion colision encargada de colision de bolas
-for(let j=0;j<N;j++){
-  //cambia movimiento de las bolas segun su radio
-let dis=dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
-if(i !==j && dis<=balls[i].radio+balls[j].radio){ // condicion si dos bolas chocan
-inelasticballscollision(balls[i],balls[j]);
-}
-}
+  for(let i=0; i<N;i++){
+  balls[i].movimiento(); //llama a la funcion movimiento y la aplica a cada bola
+  balls[i].mostrar(); //llama a mostrar para que aparezca pantalla
+  balls[i].collision(); //llama funcion colision encargada de colision de bolas
+  for(let j=0;j<N;j++){
+    //cambia movimiento de las bolas segun su radio
+    let dis=dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
+    if(i !==j && dis<=balls[i].radio+balls[j].radio){ // condicion si dos bolas chocan
+    inelasticballscollision(balls[i],balls[j]);
+      }
+    }
+
 }
 
 
@@ -122,7 +128,8 @@ let ball = function(i, _mass, _rad, _pos, _vel){
         //se acaba la función
     }
     
-    ellipse(this.pos.x, this.pos.y, 2*this.radio, 2*this.radio); //en realidad ellipse toma el ancho y alto total de la elipse, en este caso sería el diametro
+    //ellipse(this.pos.x, this.pos.y, 2*this.radio, 2*this.radio); //en realidad ellipse toma el ancho y alto total de la elipse, en este caso sería el diametro
+    circle(this.pos.x,this.pos.y, 2*this.radio);
     stroke(25);
   }
 //funcion movimiento la cual cambia posicion usando ec. Cinematica x = vt
@@ -189,4 +196,12 @@ let border = function(){
   }
 }
 
+function changeRad() {
+  radio = int(inputRadio.value());
+  inputRadio.value('');
+
+  if (radio > 5 && radio < 60) {
+    ball.r = radio;
+  }
+}
   
