@@ -22,25 +22,25 @@ button=createButton('Restaurar');
 button.mousePressed(resetSketch);
 
 //barra de bolas
-p1=createP('Número de bolas');
-p1.position(2*w/4-72.7+20,h+l/4-35); //posicion barra
 sliderx = createSlider(0, 6, 6); //controla numero de bolas
 sliderx.position(2*w/4-72.7, h+ l/4); //posicion
 sliderx.style('width', '150px'); //color
+p1=createP('Número de bolas = '+sliderx.value());
+p1.position(2*w/4-72.7+20-10,h+l/4-35); //posicion barra
 
 //barra elasticidad
-p2=createP('Porcentaje de elasticidad');
-p2.position(3*w/4-72.7,h+l/4-35); //posicion barra
 slidery = createSlider(0.1, 100, 50);
 slidery.position(3*w/4-72.7, h+ l/4);
 slidery.style('width', '150px');
+p2=createP('Porcentaje de elasticidad = '+slidery.value());
+p2.position(3*w/4-72.7-22,h+l/4-35); //posicion barra
 
 //barra fricción
-p3 = createP('Coeficiente de fricción');
-p3.position(w/4-72.7+3,h+l/4-35);
 sliderz = createSlider(0, 1, 0, 0.01);
 sliderz.position(w/4-72.7, h+ l/4);
 sliderz.style('width', '150px');
+p3 = createP('Coeficiente de fricción = '+sliderz.value());
+p3.position(w/4-72.7+3-13,h+l/4-35);
 //text("Freq Y = " + nfc(b, 2), 120,l+190);
 
 //RADIOS DE LAS SEIS POSIBLES BOLAS EN ESTE ORDEN: AMARILLA, ROJA, AZUL, MORADA, NARANJA, ROSADA
@@ -49,39 +49,51 @@ p4.position(w/2,h+l/2-15);
 
 p11 = createP('Amarilla');
 p11.position(w/7-72.7+55,h+l/2+l/4-35);
-sliderR1 = createSlider(10, 40, 10, 0.01);
+sliderR1 = createSlider(10, 40, 10, 1);
 sliderR1.position(w/7-72.7, h+ l/2+l/4);
 sliderR1.style('width', '150px');
+p21 = createP('R='+sliderR1.value());
+p21.position(w/7-72.7+55,h+l/2+l/4);
 
 p12 = createP('Roja');
 p12.position(2*w/7-72.7+65,h+l/2+l/4-35);
-sliderR2 = createSlider(10, 40, 15, 0.01);
+sliderR2 = createSlider(10, 40, 15, 1);
 sliderR2.position(2*w/7-72.7, h+ l/2+l/4);
 sliderR2.style('width', '150px');
+p22 = createP('R='+sliderR2.value());
+p22.position(2*w/7-72.7+55,h+l/2+l/4);
 
 p13 = createP('Azul');
 p13.position(3*w/7-72.7+65,h+l/2+l/4-35);
-sliderR3 = createSlider(10, 40, 20, 0.01);
+sliderR3 = createSlider(10, 40, 20, 1);
 sliderR3.position(3*w/7-72.7, h+ l/2+l/4);
 sliderR3.style('width', '150px');
+p23 = createP('R='+sliderR1.value());
+p23.position(3*w/7-72.7+55,h+l/2+l/4);
 
 p14 = createP('Morada');
 p14.position(4*w/7-72.7+55,h+l/2+l/4-35);
-sliderR4 = createSlider(10, 40, 25, 0.01);
+sliderR4 = createSlider(10, 40, 25, 1);
 sliderR4.position(4*w/7-72.7, h+ l/2+l/4);
 sliderR4.style('width', '150px');
+p24 = createP('R='+sliderR1.value());
+p24.position(4*w/7-72.7+55,h+l/2+l/4);
 
 p15 = createP('Naranja');
 p15.position(5*w/7-72.7+55,h+l/2+l/4-35);
-sliderR5 = createSlider(10, 40, 30, 0.01);
+sliderR5 = createSlider(10, 40, 30, 1);
 sliderR5.position(5*w/7-72.7, h+ l/2+l/4);
 sliderR5.style('width', '150px');
+p25 = createP('R='+sliderR1.value());
+p25.position(5*w/7-72.7+55,h+l/2+l/4);
 
 p16 = createP('Rosada');
 p16.position(6*w/7-72.7+55,h+l/2+l/4-35);
-sliderR6 = createSlider(10, 40, 40, 0.01);
+sliderR6 = createSlider(10, 40, 40, 1);
 sliderR6.position(6*w/7-72.7, h+ l/2+l/4);
 sliderR6.style('width', '150px');
+p26 = createP('R='+sliderR1.value());
+p26.position(6*w/7-72.7+55,h+l/2+l/4);
 
 
 sliderx.changed(resetSketch);
@@ -103,6 +115,19 @@ resetSketch();
 
 function resetSketch() {
   frameRate(100);
+
+  p1.html('Número de bolas = '+sliderx.value());
+  p2.html('Porcentaje de elasticidad = '+slidery.value());
+  p3.html('Coeficiente de fricción = '+sliderz.value());
+  
+  p21.html('R='+sliderR1.value());
+  p22.html('R='+sliderR2.value());
+  p23.html('R='+sliderR3.value());
+  p24.html('R='+sliderR4.value());
+  p25.html('R='+sliderR5.value());
+  p26.html('R='+sliderR6.value());
+
+
   balls=[]; //bolas
   N=sliderx.value(); //numero bolas
   phi=slidery.value(); //porcentaje ealsticidad
