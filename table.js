@@ -21,81 +21,244 @@ canvas = createCanvas(w,h);
 button=createButton('Restaurar');
 button.mousePressed(resetSketch);
 
+//Radios, en orden: AMARILLA, ROJA, AZUL, MORADA, NARANJA, ROSADA
+p4 = createP('Radios [cm]');
+p4.position(w/7-50,h-5);
+
+p11 = createP('Amarilla');
+p11.position(w/7-180,h + l-136);
+sliderR1 = createSlider(10, 40, 10, 1);
+sliderR1.position(w/7-100, h + l-121);
+sliderR1.style('width', '150px');
+p21 = createP('R=' + sliderR1.value());
+p21.position(w/7+55,h + l-136);
+
+p12 = createP('Roja');
+p12.position(w/7-180,h + l-116);
+sliderR2 = createSlider(10, 40, 15, 1);
+sliderR2.position(w/7-100, h + l - 101);
+sliderR2.style('width', '150px');
+p22 = createP('R='+sliderR2.value());
+p22.position(w/7+55,h + l-116);
+
+p13 = createP('Azul');
+p13.position(w/7-180,h + l-96);
+sliderR3 = createSlider(10, 40, 20, 1);
+sliderR3.position(w/7-100, h + l - 81);
+sliderR3.style('width', '150px');
+p23 = createP('R='+sliderR1.value());
+p23.position(w/7+55,h + l-96);
+
+p14 = createP('Morada');
+p14.position(w/7-180,h + l-76);
+sliderR4 = createSlider(10, 40, 25, 1);
+sliderR4.position(w/7-100, h + l - 61);
+sliderR4.style('width', '150px');
+p24 = createP('R='+sliderR1.value());
+p24.position(w/7+55,h + l-76);
+
+p15 = createP('Naranja');
+p15.position(w/7-180,h + l-56);
+sliderR5 = createSlider(10, 40, 30, 1);
+sliderR5.position(w/7-100, h + l - 41);
+sliderR5.style('width', '150px');
+p25 = createP('R='+sliderR1.value());
+p25.position(w/7+55,h + l-56);
+
+p16 = createP('Rosada');
+p16.position(w/7-180,h + l-36);
+sliderR6 = createSlider(10, 40, 40, 1);
+sliderR6.position(w/7-100, h + l - 21);
+sliderR6.style('width', '150px');
+p26 = createP('R='+sliderR1.value());
+p26.position(w/7+55,h + l-36);
+
+
+//sliders posicion x
+p_x = createP('Posición x [cm]');
+p_x.position(w/4,h-5);
+
+sliderpx1 = createSlider(-w/2+2*sliderR1.value(),w/2-2*sliderR1.value(),0, 50);
+sliderpx1.position(w/4-50, h + l-121);
+sliderpx1.style('width', '150px');
+px1 = createP('' + sliderpx1.value());
+px1.position(w/3,h + l-136);
+
+sliderpx2 = createSlider(-w/2+2*sliderR2.value(),w/2-2*sliderR2.value(),300, 50);
+sliderpx2.position(w/4-50, h + l - 101);
+sliderpx2.style('width', '150px');
+px2 = createP('R='+sliderpx2.value());
+px2.position(w/3,h + l-116);
+
+sliderpx3 = createSlider(-w/2+2*sliderR3.value(),w/2-2*sliderR3.value(),-300, 50);
+sliderpx3.position(w/4-50, h + l - 81);
+sliderpx3.style('width', '150px');
+px3 = createP('R='+sliderpx3.value());
+px3.position(w/3,h + l-96);
+
+sliderpx4 = createSlider(-w/2+2*sliderR4.value(),w/2-2*sliderR4.value(),0, 50);
+sliderpx4.position(w/4-50, h + l - 61);
+sliderpx4.style('width', '150px');
+px4 = createP('R='+sliderpx4.value());
+px4.position(w/3,h + l-76);
+
+sliderpx5 = createSlider(-w/2+2*sliderR5.value(),w/2-2*sliderR5.value(),0, 50);
+sliderpx5.position(w/4-50, h + l - 41);
+sliderpx5.style('width', '150px');
+px5 = createP('R='+sliderpx5.value());
+px5.position(w/3,h + l-56);
+
+sliderpx6 = createSlider(-w/2+2*sliderR6.value(),w/2-2*sliderR6.value(),300, 50);
+sliderpx6.position(w/4-50, h + l - 21);
+sliderpx6.style('width', '150px');
+px6 = createP('R='+sliderpx6.value());
+px6.position(w/3,h + l-36);
+
+//sliders posicion y
+p_y = createP('Posición y [cm]');
+p_y.position(w/4+180,h-5);
+
+sliderpy1 = createSlider(-h/2+2*sliderR1.value(),h/2-2*sliderR1.value(),0, 50);
+sliderpy1.position(w/4+150, h + l-121);
+sliderpy1.style('width', '150px');
+py1 = createP('' + sliderpy1.value());
+py1.position(w/3+195,h + l-136);
+
+sliderpy2 = createSlider(-h/2+2*sliderR2.value(),h/2-2*sliderR2.value(),200, 50);
+sliderpy2.position(w/4+150, h + l - 101);
+sliderpy2.style('width', '150px');
+py2 = createP('R='+sliderpy2.value());
+py2.position(w/3+195,h + l-116);
+
+sliderpy3 = createSlider(-h/2+2*sliderR3.value(),h/2-2*sliderR3.value(),-200, 50);
+sliderpy3.position(w/4+150, h + l - 81);
+sliderpy3.style('width', '150px');
+py3 = createP('R='+sliderpy3.value());
+py3.position(w/3+195,h + l-96);
+
+sliderpy4 = createSlider(-h/2+2*sliderR4.value(),h/2-2*sliderR4.value(),-100, 50);
+sliderpy4.position(w/4+150, h + l - 61);
+sliderpy4.style('width', '150px');
+py4 = createP('R='+sliderpy4.value());
+py4.position(w/3+195,h + l-76);
+
+sliderpy5 = createSlider(-h/2+2*sliderR5.value(),h/2-2*sliderR5.value(),200, 50);
+sliderpy5.position(w/4+150, h + l - 41);
+sliderpy5.style('width', '150px');
+py5 = createP('R='+sliderpy5.value());
+py5.position(w/3+195,h + l-56);
+
+sliderpy6 = createSlider(-h/2+2*sliderR6.value(),h/2-2*sliderR6.value(),-200, 50);
+sliderpy6.position(w/4+150, h + l - 21);
+sliderpy6.style('width', '150px');
+py6 = createP(sliderpy6.value());
+py6.position(w/3+195,h + l-36);
+
+//sliders velocidad x
+v_x = createP('Velocidad x [cm/s]');
+v_x.position(w/4+370,h-5);
+
+slidervx1 = createSlider(-100, 100, 10, 10);
+slidervx1.position(w/4+350, h + l-121);
+slidervx1.style('width', '150px');
+vx1 = createP(slidervx1.value());
+vx1.position(w/3+395,h + l-136);
+
+slidervx2 = createSlider(-100, 100, 10, 10);
+slidervx2.position(w/4+350, h + l - 101);
+slidervx2.style('width', '150px');
+vx2 = createP(slidervx2.value());
+vx2.position(w/3+395,h + l-116);
+
+slidervx3 = createSlider(-100, 100, 10, 10);
+slidervx3.position(w/4+350, h + l - 81);
+slidervx3.style('width', '150px');
+vx3 = createP(slidervx3.value());
+vx3.position(w/3+395,h + l-96);
+
+slidervx4 = createSlider(-100, 100, 10, 10);
+slidervx4.position(w/4+350, h + l - 61);
+slidervx4.style('width', '150px');
+vx4 = createP(slidervx4.value());
+vx4.position(w/3+395,h + l-76);
+
+slidervx5 = createSlider(-100, 100, 10, 10);
+slidervx5.position(w/4+350, h + l - 41);
+slidervx5.style('width', '150px');
+vx5 = createP(slidervx5.value());
+vx5.position(w/3+395,h + l-56);
+
+slidervx6 = createSlider(-100, 100, 10, 10);
+slidervx6.position(w/4+350, h + l - 21);
+slidervx6.style('width', '150px');
+vx6 = createP(slidervx6.value());
+vx6.position(w/3+395,h + l-36);
+
+//sliders velocidad y
+v_y = createP('Velocidad y [cm/s]');
+v_y.position(w/4+560,h-5);
+
+slidervy1 = createSlider(-100, 100, 10, 10);
+slidervy1.position(w/4+550, h + l-121);
+slidervy1.style('width', '150px');
+vy1 = createP(slidervy1.value());
+vy1.position(w/3+595,h + l-136);
+
+slidervy2 = createSlider(-100, 100, 10, 10);
+slidervy2.position(w/4+550, h + l - 101);
+slidervy2.style('width', '150px');
+vy2 = createP(slidervy2.value());
+vy2.position(w/3+595,h + l-116);
+
+slidervy3 = createSlider(-100, 100, 10, 10);
+slidervy3.position(w/4+550, h + l - 81);
+slidervy3.style('width', '150px');
+vy3 = createP(slidervy3.value());
+vy3.position(w/3+595,h + l-96);
+
+slidervy4 = createSlider(-100, 100, 10, 10);
+slidervy4.position(w/4+550, h + l - 61);
+slidervy4.style('width', '150px');
+vy4 = createP(slidervy4.value());
+vy4.position(w/3+595,h + l-76);
+
+slidervy5 = createSlider(-100, 100, 10, 10);
+slidervy5.position(w/4+550, h + l - 41);
+slidervy5.style('width', '150px');
+vy5 = createP(slidervy5.value());
+vy5.position(w/3+595,h + l-56);
+
+slidervy6 = createSlider(-100, 100, 10, 10);
+slidervy6.position(w/4+550, h + l - 21);
+slidervy6.style('width', '150px');
+vy6 = createP(slidervy6.value());
+vy6.position(w/3+595,h + l-36);
+
+
 //barra de bolas
-sliderx = createSlider(0, 6, 6); //controla numero de bolas
-sliderx.position(2*w/4-72.7, h+ l/4); //posicion
+sliderx = createSlider(0, 6, 1); //controla numero de bolas
+sliderx.position(w/4+750, h + l - 125); //posicion
 sliderx.style('width', '150px'); //color
 p1=createP('Número de bolas = '+sliderx.value());
-p1.position(2*w/4-72.7+20-10,h+l/4-35); //posicion barra
+p1.position(w/4+750,h-5); //posicion barra
 
 //barra elasticidad
 slidery = createSlider(0.1, 100, 50,0.1);
-slidery.position(3*w/4-72.7, h+ l/4);
+slidery.position(w/4+750, h + l - 80);
 slidery.style('width', '150px');
 p2=createP('Porcentaje de elasticidad = '+slidery.value());
-p2.position(3*w/4-72.7-22,h+l/4-35); //posicion barra
+p2.position(w/4+750,h+40); //posicion barra
 
 //barra fricción
 sliderz = createSlider(0, 1, 0, 0.01);
-sliderz.position(w/4-72.7, h+ l/4);
+sliderz.position(w/4+750, h + l - 35);
 sliderz.style('width', '150px');
 p3 = createP('Coeficiente de fricción = '+sliderz.value());
-p3.position(w/4-72.7+3-13,h+l/4-35);
-//text("Freq Y = " + nfc(b, 2), 120,l+190);
-
-//RADIOS DE LAS SEIS POSIBLES BOLAS EN ESTE ORDEN: AMARILLA, ROJA, AZUL, MORADA, NARANJA, ROSADA
-p4 = createP('Radios');
-p4.position(w/2,h+l/2-15);
-
-p11 = createP('Amarilla');
-p11.position(w/7-72.7+55,h+l/2+l/4-35);
-sliderR1 = createSlider(10, 40, 10, 1);
-sliderR1.position(w/7-72.7, h+ l/2+l/4);
-sliderR1.style('width', '150px');
-p21 = createP('R='+sliderR1.value());
-p21.position(w/7-72.7+55,h+l/2+l/4);
-
-p12 = createP('Roja');
-p12.position(2*w/7-72.7+65,h+l/2+l/4-35);
-sliderR2 = createSlider(10, 40, 15, 1);
-sliderR2.position(2*w/7-72.7, h+ l/2+l/4);
-sliderR2.style('width', '150px');
-p22 = createP('R='+sliderR2.value());
-p22.position(2*w/7-72.7+55,h+l/2+l/4);
-
-p13 = createP('Azul');
-p13.position(3*w/7-72.7+65,h+l/2+l/4-35);
-sliderR3 = createSlider(10, 40, 20, 1);
-sliderR3.position(3*w/7-72.7, h+ l/2+l/4);
-sliderR3.style('width', '150px');
-p23 = createP('R='+sliderR1.value());
-p23.position(3*w/7-72.7+55,h+l/2+l/4);
-
-p14 = createP('Morada');
-p14.position(4*w/7-72.7+55,h+l/2+l/4-35);
-sliderR4 = createSlider(10, 40, 25, 1);
-sliderR4.position(4*w/7-72.7, h+ l/2+l/4);
-sliderR4.style('width', '150px');
-p24 = createP('R='+sliderR1.value());
-p24.position(4*w/7-72.7+55,h+l/2+l/4);
-
-p15 = createP('Naranja');
-p15.position(5*w/7-72.7+55,h+l/2+l/4-35);
-sliderR5 = createSlider(10, 40, 30, 1);
-sliderR5.position(5*w/7-72.7, h+ l/2+l/4);
-sliderR5.style('width', '150px');
-p25 = createP('R='+sliderR1.value());
-p25.position(5*w/7-72.7+55,h+l/2+l/4);
-
-p16 = createP('Rosada');
-p16.position(6*w/7-72.7+55,h+l/2+l/4-35);
-sliderR6 = createSlider(10, 40, 40, 1);
-sliderR6.position(6*w/7-72.7, h+ l/2+l/4);
-sliderR6.style('width', '150px');
-p26 = createP('R='+sliderR1.value());
-p26.position(6*w/7-72.7+55,h+l/2+l/4);
+p3.position(w/4+750,h+85);
 
 
+
+//se reinicia con el nuevo valor del slider
 sliderx.changed(resetSketch);
 slidery.changed(resetSketch);
 sliderz.changed(resetSketch);
@@ -107,8 +270,33 @@ sliderR4.changed(resetSketch);
 sliderR5.changed(resetSketch);
 sliderR6.changed(resetSketch);
 
+sliderpx1.changed(resetSketch);
+sliderpx2.changed(resetSketch);
+sliderpx3.changed(resetSketch);
+sliderpx4.changed(resetSketch);
+sliderpx5.changed(resetSketch);
+sliderpx6.changed(resetSketch);
 
+sliderpy1.changed(resetSketch);
+sliderpy2.changed(resetSketch);
+sliderpy3.changed(resetSketch);
+sliderpy4.changed(resetSketch);
+sliderpy5.changed(resetSketch);
+sliderpy6.changed(resetSketch);
 
+slidervx1.changed(resetSketch);
+slidervx2.changed(resetSketch);
+slidervx3.changed(resetSketch);
+slidervx4.changed(resetSketch);
+slidervx5.changed(resetSketch);
+slidervx6.changed(resetSketch);
+
+slidervy1.changed(resetSketch);
+slidervy2.changed(resetSketch);
+slidervy3.changed(resetSketch);
+slidervy4.changed(resetSketch);
+slidervy5.changed(resetSketch);
+slidervy6.changed(resetSketch);
 resetSketch();
 
 }
@@ -120,23 +308,55 @@ function resetSketch() {
   p2.html('Porcentaje de elasticidad = '+slidery.value());
   p3.html('Coeficiente de fricción = '+sliderz.value());
   
-  p21.html('R='+sliderR1.value());
-  p22.html('R='+sliderR2.value());
-  p23.html('R='+sliderR3.value());
-  p24.html('R='+sliderR4.value());
-  p25.html('R='+sliderR5.value());
-  p26.html('R='+sliderR6.value());
+  p21.html(sliderR1.value());
+  p22.html(sliderR2.value());
+  p23.html(sliderR3.value());
+  p24.html(sliderR4.value());
+  p25.html(sliderR5.value());
+  p26.html(sliderR6.value());
 
+  px1.html(sliderpx1.value());
+  px2.html(sliderpx2.value());
+  px3.html(sliderpx3.value());
+  px4.html(sliderpx4.value());
+  px5.html(sliderpx5.value());
+  px6.html(sliderpx6.value());
+
+  py1.html(sliderpy1.value());
+  py2.html(sliderpy2.value());
+  py3.html(sliderpy3.value());
+  py4.html(sliderpy4.value());
+  py5.html(sliderpy5.value());
+  py6.html(sliderpy6.value());
+
+  vx1.html(slidervx1.value());
+  vx2.html(slidervx2.value());
+  vx3.html(slidervx3.value());
+  vx4.html(slidervx4.value());
+  vx5.html(slidervx5.value());
+  vx6.html(slidervx6.value());
+
+  vy1.html(slidervy1.value());
+  vy2.html(slidervy2.value());
+  vy3.html(slidervy3.value());
+  vy4.html(slidervy4.value());
+  vy5.html(slidervy5.value());
+  vy6.html(slidervy6.value());
 
   balls=[]; //bolas
-  N=sliderx.value(); //numero bolas
-  phi=slidery.value(); //porcentaje ealsticidad
+  N=sliderx.value(); //número bolas
+  phi=slidery.value(); //porcentaje elasticidad
   b=sliderz.value(); //coef. de fricción
   R=[sliderR1.value(),sliderR2.value(),sliderR3.value(),sliderR4.value(),sliderR5.value(),sliderR6.value()];
+  PX=[sliderpx1.value(),sliderpx2.value(),sliderpx3.value(),sliderpx4.value(),sliderpx5.value(),sliderpx6.value()]; //posiciones iniciales en x
+  PY=[sliderpy1.value(),sliderpy2.value(),sliderpy3.value(),sliderpy4.value(),sliderpy5.value(),sliderpy6.value()]; //posiciones iniciales en y
+  VX=[slidervx1.value(),slidervx2.value(),slidervx3.value(),slidervx4.value(),slidervx5.value(),slidervx6.value()]; //velocidades iniciales en x
+  VY=[slidervy1.value(),slidervy2.value(),slidervy3.value(),slidervy4.value(),slidervy5.value(),slidervy6.value()]; //velocidades iniciales en y
+
   //crea las bolas y las pone en lugar aleatorio
   for(let i=0; i<N;i++){
     //Vamos a considerar densidad=0.0001; M=4pi/3*Radio^3
-  balls.push(new ball(i, 0.0001*4.2*R[i]*sq(R[i]),R[i],createVector(random(-w/2+50,w/2-50),random(-h/2+50,h/2-50)),createVector(random(-50,50),random(-50,50))));
+  balls.push(new ball(i, 0.0001*4.2*R[i]*sq(R[i]),R[i],createVector(PX[i],PY[i]), createVector(VX[i],VY[i])));
   for(let j=0; j<i;j++){
   let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
   if(di<=balls[i].radio){
@@ -153,9 +373,6 @@ function draw() {
   translate(w/2,h/2);
   background(128,64,0);
   borde.mostrar();
-  //p6 = createP(nfc(sliderz.value(),2));
-  //p6.position(w-1040,h+l/4);
-  
    //for recorre numero de bolas
   for(let i=0; i<N;i++){
   balls[i].movimiento(); //llama a la funcion movimiento y la aplica a cada bola
@@ -182,9 +399,9 @@ let ball = function(i, _mass, _rad, _pos, _vel){
 //switch escoge las bolas para ingresar a cada una caracteristicas
   this.mostrar = function() {
     noStroke(); //elimina el borde negro
-    switch (i) {
+    switch (i) { //para diferentes colores de las bolas
       case 0:
-        fill	(255, 233, 0);
+        fill(255, 233, 0);
         break;
       case 1:
         fill(255, 0, 0);
@@ -203,23 +420,16 @@ let ball = function(i, _mass, _rad, _pos, _vel){
         break;
         //se acaba la función
     }
-    
-    //ellipse(this.pos.x, this.pos.y, 2*this.radio, 2*this.radio); //en realidad ellipse toma el ancho y alto total de la elipse, en este caso sería el diametro
     circle(this.pos.x,this.pos.y, 2*this.radio);
     stroke(25);
   }
 //funcion movimiento la cual cambia posicion usando ec. Cinematica x = vt
   this.movimiento = function(){
-
-
-    //b = 0.2; //coef. de fricción
     beta = b*dt/this.mass; //fricción si b diferente de 0
     this.vel.x = (1.0 - beta)*this.vel.x;
     this.vel.y = (1.0 - beta)*this.vel.y;
-
     this.pos.x += this.vel.x*dt;
     this.pos.y += this.vel.y*dt;
-
   }
 //funcion colision que cambia velocidad
   this.collision=function(){
@@ -310,4 +520,13 @@ function changeRad() {
     ball.r = radio;
   }
 }
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+   if ((new Date().getTime() - start) > milliseconds) {
+    break;
+   }
+  }
+ }
   
