@@ -512,15 +512,6 @@ let border = function(){
   }
 }
 
-function changeRad() {
-  radio = int(inputRadio.value());
-  inputRadio.value('');
-
-  if (radio > 5 && radio < 60) {
-    ball.r = radio;
-  }
-}
-
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
