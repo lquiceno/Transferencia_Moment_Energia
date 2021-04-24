@@ -29,7 +29,7 @@ p1=createP('Número de bolas = '+sliderx.value());
 p1.position(2*w/4-72.7+20-10,h+l/4-35); //posicion barra
 
 //barra elasticidad
-slidery = createSlider(0.1, 100, 50);
+slidery = createSlider(0.1, 100, 50,0.1);
 slidery.position(3*w/4-72.7, h+ l/4);
 slidery.style('width', '150px');
 p2=createP('Porcentaje de elasticidad = '+slidery.value());
