@@ -10,6 +10,7 @@ let l=150; //altura para mostrar botones
 let R=[];
 let w=window.innerWidth;
 let h=window.innerHeight-l; 
+let fontsize = 14;
 
 
 
@@ -19,6 +20,9 @@ function setup() {
 //aproximadamente 1360px=659--------> 150px=72.7
 
 canvas = createCanvas(w,h);
+textSize(fontsize);
+textAlign(LEFT, CENTER);
+
 button=createButton('Iniciar');
 button.mousePressed(resetSketch);
 button.position(1312,475);
@@ -330,6 +334,8 @@ function mostrarvelocidades() {
   vy5.html(slidervy5.value());
   vy6.html(slidervy6.value());
 
+  
+
 
 }
 
@@ -394,6 +400,9 @@ function draw() {
   translate(w/2,h/2);
   background(128,64,0);
   borde.mostrar();
+  fill(0);
+  text("x", w/2-30, 15);
+  text("y", 15,h/2-30);
    //for recorre numero de bolas
   for(let i=0; i<N;i++){
   balls[i].movimiento(); //llama a la funcion movimiento y la aplica a cada bola
@@ -414,6 +423,7 @@ for(let i=0; i<N; i++){
   drawArrow(balls[i].pos,balls[i].vel,'black',3);
 
 } 
+
 
 drawArrow(createVector(-w/2+10,0),createVector(w-22,0),'black',2);
 drawArrow(createVector(0,-h/2+10),createVector(0,h-22),'black',2);
@@ -579,6 +589,7 @@ function sleep(milliseconds) {
   triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
   pop();
 }
+
 
 
 
