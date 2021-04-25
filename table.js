@@ -334,7 +334,8 @@ function mostrarvelocidades() {
   vy5.html(slidervy5.value());
   vy6.html(slidervy6.value());
 
-  
+  VX=[slidervx1.value(),slidervx2.value(),slidervx3.value(),slidervx4.value(),slidervx5.value(),slidervx6.value()]; //velocidades iniciales en x
+  VY=[slidervy1.value(),slidervy2.value(),slidervy3.value(),slidervy4.value(),slidervy5.value(),slidervy6.value()]; //velocidades iniciales en y
 
 
 }
@@ -418,9 +419,21 @@ function draw() {
 
 }
 
+
+
 for(let i=0; i<N; i++){
 
-  drawArrow(balls[i].pos,balls[i].vel,'black',3);
+  if(balls[i].vel.x==0 && balls[i].vel.y==0){
+
+    
+
+      drawArrow(balls[i].pos,createVector(VX[i],VY[i]),'black',3);
+    
+    
+  }else {
+
+    drawArrow(balls[i].pos,balls[i].vel,'black',3);
+  }
 
 } 
 
