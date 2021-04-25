@@ -11,6 +11,10 @@ let R=[];
 let w=window.innerWidth;
 let h=window.innerHeight-l; 
 let fontsize = 14;
+let table;
+let p=0;
+
+
 
 
 
@@ -20,6 +24,29 @@ function setup() {
 //aproximadamente 1360px=659--------> 150px=72.7
 
 canvas = createCanvas(w,h);
+
+table = new p5.Table();
+
+
+table.addColumn('Velocidad en x Amarilla');
+table.addColumn('Velocidad en y Amarilla');
+
+table.addColumn('Velocidad en x Roja');
+table.addColumn('Velocidad en y Roja');
+
+table.addColumn('Velocidad en x Azul');
+table.addColumn('Velocidad en y Azul');
+
+table.addColumn('Velocidad en x Morada');
+table.addColumn('Velocidad en y Morada');
+
+table.addColumn('Velocidad en x Naranja');
+table.addColumn('Velocidad en y Naranja');
+
+table.addColumn('Velocidad en x Rosada');
+table.addColumn('Velocidad en y Rosada');
+
+
 textSize(fontsize);
 textAlign(LEFT, CENTER);
 
@@ -34,6 +61,10 @@ button2.position(1315,495);
 button3=createButton('Seguir');
 button3.mousePressed(Seguir);
 button3.position(1310,515);
+
+button4=createButton('Salvar');
+button4.mousePressed(Salvar);
+button4.position(1310,535);
 
 
 
@@ -318,6 +349,12 @@ resetSketch();
 
 }
 
+
+function Salvar(){
+
+  saveTable(table, 'new.html');
+}
+
 function mostrarvelocidades() {
 
   vx1.html(slidervx1.value());
@@ -440,6 +477,27 @@ for(let i=0; i<N; i++){
 
 drawArrow(createVector(-w/2+10,0),createVector(w-22,0),'black',2);
 drawArrow(createVector(0,-h/2+10),createVector(0,h-22),'black',2);
+
+
+//tabla de velocidades para bola amarilla
+
+
+table.addRow();
+table.getRow(p).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+table.getRow(p).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+table.getRow(p).setNum('Velocidad en x Roja', balls[1].vel.x);
+table.getRow(p).setNum('Velocidad en y Roja', balls[1].vel.y);
+table.getRow(p).setNum('Velocidad en x Azul', balls[2].vel.x);
+table.getRow(p).setNum('Velocidad en y Azul', balls[2].vel.y);
+table.getRow(p).setNum('Velocidad en x Morada', balls[3].vel.x);
+table.getRow(p).setNum('Velocidad en y Morada', balls[3].vel.y);
+table.getRow(p).setNum('Velocidad en x Naranja', balls[4].vel.x);
+table.getRow(p).setNum('Velocidad en y Naranja', balls[4].vel.y);
+table.getRow(p).setNum('Velocidad en x Rosada', balls[5].vel.x);
+table.getRow(p).setNum('Velocidad en y Rosada', balls[5].vel.y);
+
+p+=1;
+
 
 }
 
@@ -566,14 +624,6 @@ let border = function(){
   }
 }
 
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-   if ((new Date().getTime() - start) > milliseconds) {
-    break;
-   }
-  }
- }
 
 
  function Parar(){
@@ -602,6 +652,7 @@ function sleep(milliseconds) {
   triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
   pop();
 }
+
 
 
 
