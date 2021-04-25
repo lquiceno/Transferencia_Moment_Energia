@@ -411,9 +411,12 @@ function draw() {
 
 for(let i=0; i<N; i++){
 
-  drawArrow(balls[i].pos,balls[i].vel,'black');
+  drawArrow(balls[i].pos,balls[i].vel,'black',3);
 
 } 
+
+drawArrow(createVector(-w/2+10,0),createVector(w-22,0),'black',2);
+drawArrow(createVector(0,-h/2+10),createVector(0,h-22),'black',2);
 
 }
 
@@ -563,15 +566,15 @@ function sleep(milliseconds) {
  }
 
  //Dibuja un vector, basado en la referencia de p5
- function drawArrow(base, vec, myColor) {
+ function drawArrow(base, vec, myColor,size) {
   push();
   stroke(myColor);
-  strokeWeight(3);
+  strokeWeight(size);
   fill(myColor);
   translate(base.x, base.y);
   line(0, 0, vec.x, vec.y);
   rotate(vec.heading());
-  let arrowSize = 3;
+  let arrowSize = 4*size;
   translate(vec.mag() - arrowSize, 0);
   triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
   pop();
