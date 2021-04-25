@@ -12,14 +12,26 @@ let w=window.innerWidth;
 let h=window.innerHeight-l; 
 
 
+
 function setup() {
 //canvas = createCanvas(windowWidth, windowHeight);
 //crea botones para interaccion con usuario
 //aproximadamente 1360px=659--------> 150px=72.7
 
 canvas = createCanvas(w,h);
-button=createButton('Restaurar');
+button=createButton('Iniciar');
 button.mousePressed(resetSketch);
+button.position(1312,475);
+
+button2=createButton('Parar');
+button2.mousePressed(Parar);
+button2.position(1315,495);
+
+button3=createButton('Seguir');
+button3.mousePressed(Seguir);
+button3.position(1310,515);
+
+
 
 //Radios, en orden: AMARILLA, ROJA, AZUL, MORADA, NARANJA, ROSADA
 p4 = createP('Masas [g]');
@@ -78,37 +90,37 @@ p26.position(w/7+55,h + l-36);
 p_x = createP('Posición x [cm]');
 p_x.position(w/4,h-5);
 
-sliderpx1 = createSlider(round(-w/2+2*20*((3*sliderR1.value())/(12.56*6))**(1/3),1),round(w/2-2*20*((3*sliderR1.value())/(12.56*6))**(1/3),1),-w/2+w/7, 10);
+sliderpx1 = createSlider(round(-w/2+2*39.34,1),round(w/2-2*39.34,1),-w/2+w/7, 0.1);
 sliderpx1.position(w/4-50, h + l-121);
 sliderpx1.style('width', '150px');
 px1 = createP('' + sliderpx1.value());
 px1.position(w/3,h + l-136);
 
-sliderpx2 = createSlider(round(-w/2+2*20*((3*sliderR2.value())/(12.56*6))**(1/3),1),round(w/2-2*20*((3*sliderR2.value())/(12.56*6))**(1/3),1),-w/2+2*w/7, 10);
+sliderpx2 = createSlider(round(-w/2+2*39.34,1),round(w/2-2*39.34,1),-w/2+2*w/7, 0.1);
 sliderpx2.position(w/4-50, h + l - 101);
 sliderpx2.style('width', '150px');
 px2 = createP('R='+sliderpx2.value());
 px2.position(w/3,h + l-116);
 
-sliderpx3 = createSlider(round(-w/2+2*20*((3*sliderR3.value())/(12.56*6))**(1/3),1),round(w/2-2*20*((3*sliderR3.value())/(12.56*6))**(1/3),1),-w/2+3*w/7, 10);
+sliderpx3 = createSlider(round(-w/2+2*39.34,1),round(w/2-2*39.34,1),-w/2+3*w/7, 0.1);
 sliderpx3.position(w/4-50, h + l - 81);
 sliderpx3.style('width', '150px');
 px3 = createP('R='+sliderpx3.value());
 px3.position(w/3,h + l-96);
 
-sliderpx4 = createSlider(round(-w/2+2*20*((3*sliderR4.value())/(12.56*6))**(1/3),1),round(w/2-2*20*((3*sliderR4.value())/(12.56*6))**(1/3),1),-w/2+4*w/7, 10);
+sliderpx4 = createSlider(round(-w/2+2*39.34,1),round(w/2-2*39.34,1),-w/2+4*w/7, 0.1);
 sliderpx4.position(w/4-50, h + l - 61);
 sliderpx4.style('width', '150px');
 px4 = createP('R='+sliderpx4.value());
 px4.position(w/3,h + l-76);
 
-sliderpx5 = createSlider(round(-w/2+2*20*((3*sliderR5.value())/(12.56*6))**(1/3),1),round(w/2-2*20*((3*sliderR5.value())/(12.56*6))**(1/3),1),-w/2+5*w/7, 10);
+sliderpx5 = createSlider(round(-w/2+2*39.34,1),round(w/2-2*39.34,1),-w/2+5*w/7, 0.1);
 sliderpx5.position(w/4-50, h + l - 41);
 sliderpx5.style('width', '150px');
 px5 = createP('R='+sliderpx5.value());
 px5.position(w/3,h + l-56);
 
-sliderpx6 = createSlider(round(-w/2+2*20*((3*sliderR6.value())/(12.56*6))**(1/3),1),round(w/2-2*20*((3*sliderR6.value())/(12.56*6))**(1/3),1),-w/2+6*w/7, 10);
+sliderpx6 = createSlider(round(-w/2+2*39.34,1),round(w/2-2*39.34,1),-w/2+6*w/7, 0.1);
 sliderpx6.position(w/4-50, h + l - 21);
 sliderpx6.style('width', '150px');
 px6 = createP('R='+sliderpx6.value());
@@ -118,37 +130,37 @@ px6.position(w/3,h + l-36);
 p_y = createP('Posición y [cm]');
 p_y.position(w/4+180,h-5);
 
-sliderpy1 = createSlider(round(-h/2+2*20*((3*sliderR1.value())/(12.56*6))**(1/3),1),round(h/2-2*20*((3*sliderR1.value())/(12.56*6))**(1/3),1),0, 1);
+sliderpy1 = createSlider(round(-h/2+2*39.34,1),round(h/2-2*39.34,1),0,0.1);
 sliderpy1.position(w/4+150, h + l-121);
 sliderpy1.style('width', '150px');
 py1 = createP('' + sliderpy1.value());
 py1.position(w/3+195,h + l-136);
 
-sliderpy2 = createSlider(round(-h/2+2*20*((3*sliderR2.value())/(12.56*6))**(1/3),1),round(h/2-2*20*((3*sliderR2.value())/(12.56*6))**(1/3),1),0, 1);
+sliderpy2 = createSlider(round(-h/2+2*39.34,1),round(h/2-2*39.34,1),0, 0.1);
 sliderpy2.position(w/4+150, h + l - 101);
 sliderpy2.style('width', '150px');
 py2 = createP('R='+sliderpy2.value());
 py2.position(w/3+195,h + l-116);
 
-sliderpy3 = createSlider(round(-h/2+2*20*((3*sliderR3.value())/(12.56*6))**(1/3),1),round(h/2-2*20*((3*sliderR3.value())/(12.56*6))**(1/3),1),0, 1);
+sliderpy3 = createSlider(round(-h/2+2*39.34,1),round(h/2-2*39.34,1),0, 0.1);
 sliderpy3.position(w/4+150, h + l - 81);
 sliderpy3.style('width', '150px');
 py3 = createP('R='+sliderpy3.value());
 py3.position(w/3+195,h + l-96);
 
-sliderpy4 = createSlider(round(-h/2+2*20*((3*sliderR4.value())/(12.56*6))**(1/3),1),round(h/2-2*20*((3*sliderR4.value())/(12.56*6))**(1/3),1),0, 1);
+sliderpy4 = createSlider(round(-h/2+2*39.34,1),round(h/2-2*39.34,1),0, 0.1);
 sliderpy4.position(w/4+150, h + l - 61);
 sliderpy4.style('width', '150px');
 py4 = createP('R='+sliderpy4.value());
 py4.position(w/3+195,h + l-76);
 
-sliderpy5 = createSlider(round(-h/2+2*20*((3*sliderR5.value())/(12.56*6))**(1/3),1),round(h/2-2*20*((3*sliderR5.value())/(12.56*6))**(1/3),1),0, 1);
+sliderpy5 = createSlider(round(-h/2+2*39.34,1),round(h/2-2*39.34,1),0, 0.1);
 sliderpy5.position(w/4+150, h + l - 41);
 sliderpy5.style('width', '150px');
 py5 = createP('R='+sliderpy5.value());
 py5.position(w/3+195,h + l-56);
 
-sliderpy6 = createSlider(round(-h/2+2*20*((3*sliderR6.value())/(12.56*6))**(1/3),1),round(h/2-2*20*((3*sliderR6.value())/(12.56*6))**(1/3),1),0, 1);
+sliderpy6 = createSlider(round(-h/2+2*39.34,1),round(h/2-2*39.34,1),0, 0.1);
 sliderpy6.position(w/4+150, h + l - 21);
 sliderpy6.style('width', '150px');
 py6 = createP(sliderpy6.value());
@@ -158,37 +170,37 @@ py6.position(w/3+195,h + l-36);
 v_x = createP('Velocidad x [cm/s]');
 v_x.position(w/4+370,h-5);
 
-slidervx1 = createSlider(-30, 30, 0, 1);
+slidervx1 = createSlider(-30, 30, 0, 0.1);
 slidervx1.position(w/4+350, h + l-121);
 slidervx1.style('width', '150px');
 vx1 = createP(slidervx1.value());
 vx1.position(w/3+395,h + l-136);
 
-slidervx2 = createSlider(-30, 30, 0, 1);
+slidervx2 = createSlider(-30, 30, 0, 0.1);
 slidervx2.position(w/4+350, h + l - 101);
 slidervx2.style('width', '150px');
 vx2 = createP(slidervx2.value());
 vx2.position(w/3+395,h + l-116);
 
-slidervx3 = createSlider(-30, 30, 0, 1);
+slidervx3 = createSlider(-30, 30, 0, 0.1);
 slidervx3.position(w/4+350, h + l - 81);
 slidervx3.style('width', '150px');
 vx3 = createP(slidervx3.value());
 vx3.position(w/3+395,h + l-96);
 
-slidervx4 = createSlider(-30, 30, 0, 1);
+slidervx4 = createSlider(-30, 30, 0, 0.1);
 slidervx4.position(w/4+350, h + l - 61);
 slidervx4.style('width', '150px');
 vx4 = createP(slidervx4.value());
 vx4.position(w/3+395,h + l-76);
 
-slidervx5 = createSlider(-30, 30, 0, 1);
+slidervx5 = createSlider(-30, 30, 0, 0.1);
 slidervx5.position(w/4+350, h + l - 41);
 slidervx5.style('width', '150px');
 vx5 = createP(slidervx5.value());
 vx5.position(w/3+395,h + l-56);
 
-slidervx6 = createSlider(-30, 30, 0, 1);
+slidervx6 = createSlider(-30, 30, 0, 0.1);
 slidervx6.position(w/4+350, h + l - 21);
 slidervx6.style('width', '150px');
 vx6 = createP(slidervx6.value());
@@ -198,37 +210,37 @@ vx6.position(w/3+395,h + l-36);
 v_y = createP('Velocidad y [cm/s]');
 v_y.position(w/4+560,h-5);
 
-slidervy1 = createSlider(-30, 30, 0, 1);
+slidervy1 = createSlider(-30, 30, 0, 0.1);
 slidervy1.position(w/4+550, h + l-121);
 slidervy1.style('width', '150px');
 vy1 = createP(slidervy1.value());
 vy1.position(w/3+595,h + l-136);
 
-slidervy2 = createSlider(-30, 30, 0, 1);
+slidervy2 = createSlider(-30, 30, 0, 0.1);
 slidervy2.position(w/4+550, h + l - 101);
 slidervy2.style('width', '150px');
 vy2 = createP(slidervy2.value());
 vy2.position(w/3+595,h + l-116);
 
-slidervy3 = createSlider(-30, 30, 0, 1);
+slidervy3 = createSlider(-30, 30, 0, 0.1);
 slidervy3.position(w/4+550, h + l - 81);
 slidervy3.style('width', '150px');
 vy3 = createP(slidervy3.value());
 vy3.position(w/3+595,h + l-96);
 
-slidervy4 = createSlider(-30, 30, 0, 1);
+slidervy4 = createSlider(-30, 30, 0, 0.1);
 slidervy4.position(w/4+550, h + l - 61);
 slidervy4.style('width', '150px');
 vy4 = createP(slidervy4.value());
 vy4.position(w/3+595,h + l-76);
 
-slidervy5 = createSlider(-30, 30, 0, 1);
+slidervy5 = createSlider(-30, 30, 0, 0.1);
 slidervy5.position(w/4+550, h + l - 41);
 slidervy5.style('width', '150px');
 vy5 = createP(slidervy5.value());
 vy5.position(w/3+595,h + l-56);
 
-slidervy6 = createSlider(-30, 30, 0, 1);
+slidervy6 = createSlider(-30, 30, 0, 0.1);
 slidervy6.position(w/4+550, h + l - 21);
 slidervy6.style('width', '150px');
 vy6 = createP(slidervy6.value());
@@ -284,25 +296,46 @@ sliderpy4.changed(resetSketch);
 sliderpy5.changed(resetSketch);
 sliderpy6.changed(resetSketch);
 
-slidervx1.changed(resetSketch);
-slidervx2.changed(resetSketch);
-slidervx3.changed(resetSketch);
-slidervx4.changed(resetSketch);
-slidervx5.changed(resetSketch);
-slidervx6.changed(resetSketch);
+slidervx1.changed(mostrarvelocidades);
+slidervx2.changed(mostrarvelocidades);
+slidervx3.changed(mostrarvelocidades);
+slidervx4.changed(mostrarvelocidades);
+slidervx5.changed(mostrarvelocidades);
+slidervx6.changed(mostrarvelocidades);
 
-slidervy1.changed(resetSketch);
-slidervy2.changed(resetSketch);
-slidervy3.changed(resetSketch);
-slidervy4.changed(resetSketch);
-slidervy5.changed(resetSketch);
-slidervy6.changed(resetSketch);
+slidervy1.changed(mostrarvelocidades);
+slidervy2.changed(mostrarvelocidades);
+slidervy3.changed(mostrarvelocidades);
+slidervy4.changed(mostrarvelocidades);
+slidervy5.changed(mostrarvelocidades);
+slidervy6.changed(mostrarvelocidades);
+
 resetSketch();
+
+}
+
+function mostrarvelocidades() {
+
+  vx1.html(slidervx1.value());
+  vx2.html(slidervx2.value());
+  vx3.html(slidervx3.value());
+  vx4.html(slidervx4.value());
+  vx5.html(slidervx5.value());
+  vx6.html(slidervx6.value());
+
+  vy1.html(slidervy1.value());
+  vy2.html(slidervy2.value());
+  vy3.html(slidervy3.value());
+  vy4.html(slidervy4.value());
+  vy5.html(slidervy5.value());
+  vy6.html(slidervy6.value());
+
 
 }
 
 function resetSketch() {
   frameRate(100);
+  
 
   p1.html('Número de bolas = '+sliderx.value());
   p2.html('Porcentaje de elasticidad = '+slidery.value());
@@ -329,19 +362,7 @@ function resetSketch() {
   py5.html(sliderpy5.value());
   py6.html(sliderpy6.value());
 
-  vx1.html(slidervx1.value());
-  vx2.html(slidervx2.value());
-  vx3.html(slidervx3.value());
-  vx4.html(slidervx4.value());
-  vx5.html(slidervx5.value());
-  vx6.html(slidervx6.value());
-
-  vy1.html(slidervy1.value());
-  vy2.html(slidervy2.value());
-  vy3.html(slidervy3.value());
-  vy4.html(slidervy4.value());
-  vy5.html(slidervy5.value());
-  vy6.html(slidervy6.value());
+  
 
   balls=[]; //bolas
   N=sliderx.value(); //número bolas
@@ -388,8 +409,15 @@ function draw() {
 
 }
 
+for(let i=0; i<N; i++){
+
+  drawArrow(balls[i].pos,balls[i].vel,'black');
+
+} 
 
 }
+
+
 //llama las caracteristicas fisicas de la bola
 let ball = function(i, _mass, _rad, _pos, _vel){
   this.mass = _mass;
@@ -520,4 +548,37 @@ function sleep(milliseconds) {
    }
   }
  }
+
+
+ function Parar(){
+
+  noLoop();
+
+ }
+
+ function Seguir(){
+
+  loop();
+
+ }
+
+ //Dibuja un vector, basado en la referencia de p5
+ function drawArrow(base, vec, myColor) {
+  push();
+  stroke(myColor);
+  strokeWeight(3);
+  fill(myColor);
+  translate(base.x, base.y);
+  line(0, 0, vec.x, vec.y);
+  rotate(vec.heading());
+  let arrowSize = 3;
+  translate(vec.mag() - arrowSize, 0);
+  triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+  pop();
+}
+
+
+
+ 
+ 
   
