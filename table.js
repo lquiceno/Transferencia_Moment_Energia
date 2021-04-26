@@ -355,6 +355,7 @@ function Salvar(){
   saveTable(table, 'new.html');
 }
 
+
 function mostrarvelocidades() {
 
   vx1.html(slidervx1.value());
@@ -482,22 +483,25 @@ drawArrow(createVector(0,-h/2+10),createVector(0,h-22),'black',2);
 //tabla de velocidades para bola amarilla
 
 
+//esto quiere decir que el usuario tiene 1 min aprox. para ingresar datos, despues de los cuales se empezará a medir velocidades.
+if(6000<p && p<6026){
 table.addRow();
-table.getRow(p).setNum('Velocidad en x Amarilla', balls[0].vel.x);
-table.getRow(p).setNum('Velocidad en y Amarilla', balls[0].vel.y);
-table.getRow(p).setNum('Velocidad en x Roja', balls[1].vel.x);
-table.getRow(p).setNum('Velocidad en y Roja', balls[1].vel.y);
-table.getRow(p).setNum('Velocidad en x Azul', balls[2].vel.x);
-table.getRow(p).setNum('Velocidad en y Azul', balls[2].vel.y);
-table.getRow(p).setNum('Velocidad en x Morada', balls[3].vel.x);
-table.getRow(p).setNum('Velocidad en y Morada', balls[3].vel.y);
-table.getRow(p).setNum('Velocidad en x Naranja', balls[4].vel.x);
-table.getRow(p).setNum('Velocidad en y Naranja', balls[4].vel.y);
-table.getRow(p).setNum('Velocidad en x Rosada', balls[5].vel.x);
-table.getRow(p).setNum('Velocidad en y Rosada', balls[5].vel.y);
+table.getRow(p-6001).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+table.getRow(p-6001).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+table.getRow(p-6001).setNum('Velocidad en x Roja', balls[1].vel.x);
+table.getRow(p-6001).setNum('Velocidad en y Roja', balls[1].vel.y);
+table.getRow(p-6001).setNum('Velocidad en x Azul', balls[2].vel.x);
+table.getRow(p-6001).setNum('Velocidad en y Azul', balls[2].vel.y);
+table.getRow(p-6001).setNum('Velocidad en x Morada', balls[3].vel.x);
+table.getRow(p-6001).setNum('Velocidad en y Morada', balls[3].vel.y);
+table.getRow(p-6001).setNum('Velocidad en x Naranja', balls[4].vel.x);
+table.getRow(p-6001).setNum('Velocidad en y Naranja', balls[4].vel.y);
+table.getRow(p-6001).setNum('Velocidad en x Rosada', balls[5].vel.x);
+table.getRow(p-6001).setNum('Velocidad en y Rosada', balls[5].vel.y);
+
+}
 
 p+=1;
-
 
 }
 
@@ -655,7 +659,14 @@ let border = function(){
 
 
 
-
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+   if ((new Date().getTime() - start) > milliseconds) {
+    break;
+   }
+  }
+ }
 
  
  
