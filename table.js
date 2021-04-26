@@ -587,7 +587,7 @@ object2.vel.y-=(a/object2.mass)*u.y;
 }
 }
 
-
+/*
 MostGeneralCollision=function(object1,object2){
   //ANALISIS SIN CONSERVACION DEL MOMENTO, CUANDO SE LLAMA NO PARECE DAR UN RESULTADO FÍSICAMENTE VIABLE.
   let d=dist(object1.pos.x,object1.pos.y,object2.pos.x,object2.pos.y);
@@ -616,7 +616,7 @@ MostGeneralCollision=function(object1,object2){
     
   }
   }
-
+*/
 
 let border = function(){
   //funcion mostrar para aparecer el lienzo 
@@ -658,15 +658,6 @@ let border = function(){
 }
 
 
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-   if ((new Date().getTime() - start) > milliseconds) {
-    break;
-   }
-  }
- }
 
  
  
