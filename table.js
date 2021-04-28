@@ -13,7 +13,7 @@ let h=window.innerHeight-l;
 let fontsize = 14;
 let table;
 let p=0;
-
+let f=6000; //tiene que ver con el tiempo para guardar datos
 
 
 
@@ -283,7 +283,7 @@ vy6.position(w/3+595,h + l-36);
 
 
 //barra de bolas
-sliderx = createSlider(0, 6, 6); //controla numero de bolas
+sliderx = createSlider(1, 6, 6); //controla numero de bolas
 sliderx.position(w/4+750, h + l - 125); //posicion
 sliderx.style('width', '150px'); //color
 p1=createP('Número de bolas = '+sliderx.value());
@@ -381,7 +381,7 @@ function mostrarvelocidades() {
 function resetSketch() {
   frameRate(100);
   
-
+table.clearRows();
   p1.html('Número de bolas = '+sliderx.value());
   p2.html('Porcentaje de elasticidad = '+slidery.value());
   p3.html('Coeficiente de fricción = '+sliderz.value());
@@ -442,6 +442,12 @@ function draw() {
   fill(0);
   text("x", w/2-30, 15);
   text("y", 15,h/2-30);
+if(p>f+26){
+  text("Datos Guardados", w/2-130, h/2-30);
+}
+if(p<6026){
+text(p, w/2-50, h/2-17);
+}
    //for recorre numero de bolas
   for(let i=0; i<N;i++){
   balls[i].movimiento(); //llama a la funcion movimiento y la aplica a cada bola
@@ -484,20 +490,90 @@ drawArrow(createVector(0,-h/2+10),createVector(0,h-22),'black',2);
 
 
 //esto quiere decir que el usuario tiene 1 min aprox. para ingresar datos, despues de los cuales se empezará a medir velocidades.
-if(6000<p && p<6026){
+if(f<p && p<f+26){
 table.addRow();
-table.getRow(p-6001).setNum('Velocidad en x Amarilla', balls[0].vel.x);
-table.getRow(p-6001).setNum('Velocidad en y Amarilla', balls[0].vel.y);
-table.getRow(p-6001).setNum('Velocidad en x Roja', balls[1].vel.x);
-table.getRow(p-6001).setNum('Velocidad en y Roja', balls[1].vel.y);
-table.getRow(p-6001).setNum('Velocidad en x Azul', balls[2].vel.x);
-table.getRow(p-6001).setNum('Velocidad en y Azul', balls[2].vel.y);
-table.getRow(p-6001).setNum('Velocidad en x Morada', balls[3].vel.x);
-table.getRow(p-6001).setNum('Velocidad en y Morada', balls[3].vel.y);
-table.getRow(p-6001).setNum('Velocidad en x Naranja', balls[4].vel.x);
-table.getRow(p-6001).setNum('Velocidad en y Naranja', balls[4].vel.y);
-table.getRow(p-6001).setNum('Velocidad en x Rosada', balls[5].vel.x);
-table.getRow(p-6001).setNum('Velocidad en y Rosada', balls[5].vel.y);
+if(N==1){
+  table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+  table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+  table.getRow(p-f-1).setString('Velocidad en x Roja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Roja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Azul', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Azul', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Morada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Morada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
+} else if(N==2){
+  table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+  table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+  table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Roja', balls[1].vel.y);
+table.getRow(p-f-1).setString('Velocidad en x Azul', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Azul', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Morada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Morada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
+} else if(N==3){
+  table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+  table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+  table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Roja', balls[1].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Azul', balls[2].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Azul', balls[2].vel.y);
+table.getRow(p-f-1).setString('Velocidad en x Morada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Morada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
+
+} else if(N==4){
+  table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+  table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+  table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
+  table.getRow(p-f-1).setNum('Velocidad en y Roja', balls[1].vel.y);
+  table.getRow(p-f-1).setNum('Velocidad en x Azul', balls[2].vel.x);
+  table.getRow(p-f-1).setNum('Velocidad en y Azul', balls[2].vel.y);
+  table.getRow(p-f-1).setNum('Velocidad en x Morada', balls[3].vel.x);
+  table.getRow(p-f-1).setNum('Velocidad en y Morada', balls[3].vel.y);
+  table.getRow(p-f-1).setString('Velocidad en x Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Naranja', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
+
+} else if (N==5){
+
+  table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Roja', balls[1].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Azul', balls[2].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Azul', balls[2].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Morada', balls[3].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Morada', balls[3].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Naranja', balls[4].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Naranja', balls[4].vel.y);
+table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
+table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
+} else if (N==6){
+table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Roja', balls[1].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Azul', balls[2].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Azul', balls[2].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Morada', balls[3].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Morada', balls[3].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Naranja', balls[4].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Naranja', balls[4].vel.y);
+table.getRow(p-f-1).setNum('Velocidad en x Rosada', balls[5].vel.x);
+table.getRow(p-f-1).setNum('Velocidad en y Rosada', balls[5].vel.y);
+}
 
 }
 
