@@ -50,9 +50,9 @@ table.addColumn('Velocidad en y Rosada');
 textSize(fontsize);
 textAlign(LEFT, CENTER);
 
-button=createButton('Iniciar');
+button=createButton('Restaurar');
 button.mousePressed(resetSketch);
-button.position(1312,475);
+button.position(1290,475);
 
 button2=createButton('Parar');
 button2.mousePressed(Parar);
