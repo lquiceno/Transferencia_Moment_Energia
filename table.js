@@ -1,5 +1,5 @@
 let dt = 1/10;
-let balls=[]; 
+let balls=[]; //lista vacía que guardará información de las bolas.
 let l=150; //altura para mostrar botones
 let R=[];
 let w=window.innerWidth; //ancho de la mesa de billar 
@@ -45,8 +45,7 @@ textAlign(LEFT, CENTER);
 //Seguir después de oprimir Parar para continuar con el desarrollo de la simulación.
 //Salvar: Una vez que en la mesa de billar aparezca el mensaje Datos Guardados, se puede oprimir este botón para guardar los datos de las
 //velocidades de las diferentes bolas durante la simulación.
-//Para los tamaños de los botones, los cuales se hicieron por ensayo y error hasta que estos lucieran estéticos en la pantalla, notamos que 
-//aproximadamente 1360px=659--------> 150px=72.7
+//Para los tamaños de los botones, los cuales se hicieron por ensayo y error hasta que estos lucieran estéticos en la pantalla.
 // Cuando se oprime cualquiera de estos botones se ejecuta una función llamada resetSketch que se definirá mas adelante.
 
 button=createButton('Restaurar');
@@ -65,19 +64,19 @@ button4=createButton('Salvar');
 button4.mousePressed(Salvar);
 button4.position(1310,535);
 
+//En esta sección creamos las etiquetas del color de las diferentes bolas en el orden: Amarilla, Roja, Azul, Morada, Naranja y Rosada junto 
+//con los sliders que controlaran la masa de dichas bolas.
 
-
-//Radios, en orden: AMARILLA, ROJA, AZUL, MORADA, NARANJA, ROSADA
 p4 = createP('Masas [g]');
 p4.position(w/7-50,h-5);
 
-p11 = createP('Amarilla');
-p11.position(w/7-180,h + l-136);
-sliderR1 = createSlider(10, 200, 10, 1);
-sliderR1.position(w/7-100, h + l-121);
-sliderR1.style('width', '150px');
-p21 = createP('R=' + sliderR1.value());
-p21.position(w/7+55,h + l-136);
+p11 = createP('Amarilla'); //etiqueta de color
+p11.position(w/7-180,h + l-136); //posiciona dicha etiqueta. Los valores numéricos aquí fueron obtenidos por ensayo y error hasta lograr un ajuste bueno.
+sliderR1 = createSlider(10, 200, 10, 1); //crea slider que puede variar entre 10 y 200, tomando por defecto el valor 10 y variando en pasos de una unidad.
+sliderR1.position(w/7-100, h + l-121); //posiciona slider
+sliderR1.style('width', '150px'); //Explorando VisualCode encontramos que aproximadamente 1360px=659--------> 150px=72.7
+p21 = createP('R=' + sliderR1.value()); //Muestra en la pantalla el valor numerico seleccionado en el slider.
+p21.position(w/7+55,h + l-136); // posiciona dicho valor numerico. 
 
 p12 = createP('Roja');
 p12.position(w/7-180,h + l-116);
@@ -119,8 +118,7 @@ sliderR6.style('width', '150px');
 p26 = createP('R='+sliderR1.value());
 p26.position(w/7+55,h + l-36);
 
-
-//sliders posicion x
+//En esta seccion sigue estructuralmente los mismos pasos que la anterior solo que esta vez construimos los sliders para las posiciones iniciales en el eje horizontal x. Por tanto aplican comentarios análogos.
 p_x = createP('Posición x [cm]');
 p_x.position(w/4,h-5);
 
@@ -283,28 +281,28 @@ vy6.position(w/3+595,h + l-36);
 
 //barra de bolas
 sliderx = createSlider(1, 6, 6); //controla numero de bolas
-sliderx.position(w/4+750, h + l - 125); //posicion
-sliderx.style('width', '150px'); //color
-p1=createP('Número de bolas = '+sliderx.value());
-p1.position(w/4+750,h-5); //posicion barra
+sliderx.position(w/4+750, h + l - 125); //posiciona slider
+sliderx.style('width', '150px'); 
+p1=createP('Número de bolas = '+sliderx.value()); //crea etiqueta de Numero de bolas y muestra el valor numérico asignado por el usuario.
+p1.position(w/4+750,h-5); //posiciona la etiqueta anterior.
 
-//barra elasticidad
+//barra elasticidad. Sigue una estructura y comentarios analogos a la barra de bolas.
 slidery = createSlider(0.1, 100, 50,0.1);
 slidery.position(w/4+750, h + l - 80);
 slidery.style('width', '150px');
 p2=createP('Porcentaje de elasticidad = '+slidery.value());
-p2.position(w/4+750,h+40); //posicion barra
+p2.position(w/4+750,h+40); 
 
-//barra fricción
+//barra fricción. Sigue una estructura y comentarios analogos a la barra de bolas.
 sliderz = createSlider(0, 1, 0, 0.01);
 sliderz.position(w/4+750, h + l - 35);
 sliderz.style('width', '150px');
 p3 = createP('Coeficiente de fricción = '+sliderz.value());
 p3.position(w/4+750,h+85);
 
+//Cada vez que se modifica un slider se ejecuta la función resetSketch que se definirá mas adelante, pero tiene la función de reiniciar la
+//simulación con las condiciones iniciales de los valores actualizados de los sliders.
 
-
-//se reinicia con el nuevo valor del slider
 sliderx.changed(resetSketch);
 slidery.changed(resetSketch);
 sliderz.changed(resetSketch);
@@ -330,6 +328,8 @@ sliderpy4.changed(resetSketch);
 sliderpy5.changed(resetSketch);
 sliderpy6.changed(resetSketch);
 
+//cuando se modifican los sliders de las velocidades, se ejecuta una funcion llamada mostrarvelocidades definida mas adelante.
+
 slidervx1.changed(mostrarvelocidades);
 slidervx2.changed(mostrarvelocidades);
 slidervx3.changed(mostrarvelocidades);
@@ -344,18 +344,19 @@ slidervy4.changed(mostrarvelocidades);
 slidervy5.changed(mostrarvelocidades);
 slidervy6.changed(mostrarvelocidades);
 
-resetSketch();
+resetSketch(); //esta función tiene varias funcionalidades que se definirán mas adelante.
 
 }
 
 
 function Salvar(){
 
-  saveTable(table, 'new.html');
-}
+  saveTable(table, 'new.html'); //funcion que permite guardar en una tabla los diferentes valores de las velocidades de las bolas de billar durante la simulación.
+}                               // Se puede cambiar el formato de html por csv o tsv.
 
 
-function mostrarvelocidades() {
+function mostrarvelocidades() { //esta funcion actualiza los valores numéricos de las etiquetas de las velocidades en los sliders y actualiza
+                                //las velocidades iniciales de las diferentes bolas.
 
   vx1.html(slidervx1.value());
   vx2.html(slidervx2.value());
@@ -377,9 +378,11 @@ function mostrarvelocidades() {
 
 }
 
-function resetSketch() {
+function resetSketch() { 
   frameRate(100);
-  
+
+  //Esta parte actualiza las etiquetas de los valores numéricos de los sliders de Numero de bolas, Porcentaje de elasticidad, Coeficiente de friccion
+  // y posiciones en ejes horizontal y vertical de las diferentes bolas.
 table.clearRows();
   p1.html('Número de bolas = '+sliderx.value());
   p2.html('Porcentaje de elasticidad = '+slidery.value());
@@ -406,31 +409,30 @@ table.clearRows();
   py5.html(sliderpy5.value());
   py6.html(sliderpy6.value());
 
-  
+  balls=[]; //lista vacía que guardará información de las bolas como su masa, radio, posiciones y velocidades.
+  N=sliderx.value(); //número bolas.
+  phi=slidery.value(); //porcentaje elasticidad, choque completamente elastico phi=100, choque completamente inelastico phi=0.
+  b=sliderz.value(); //coeficiente de fricción.
+  M=[sliderR1.value(),sliderR2.value(),sliderR3.value(),sliderR4.value(),sliderR5.value(),sliderR6.value()]; //Masas de las bolas.
+  PX=[sliderpx1.value(),sliderpx2.value(),sliderpx3.value(),sliderpx4.value(),sliderpx5.value(),sliderpx6.value()]; //posiciones iniciales en x.
+  PY=[sliderpy1.value(),sliderpy2.value(),sliderpy3.value(),sliderpy4.value(),sliderpy5.value(),sliderpy6.value()]; //posiciones iniciales en y.
+  VX=[slidervx1.value(),slidervx2.value(),slidervx3.value(),slidervx4.value(),slidervx5.value(),slidervx6.value()]; //velocidades iniciales en x.
+  VY=[slidervy1.value(),slidervy2.value(),slidervy3.value(),slidervy4.value(),slidervy5.value(),slidervy6.value()]; //velocidades iniciales en y.
 
-  balls=[]; //bolas
-  N=sliderx.value(); //número bolas
-  phi=slidery.value(); //porcentaje elasticidad //choque completamente elastico phi=100, choque completamente inelastico phi=0
-  b=sliderz.value(); //coef. de fricción
-  M=[sliderR1.value(),sliderR2.value(),sliderR3.value(),sliderR4.value(),sliderR5.value(),sliderR6.value()];
-  PX=[sliderpx1.value(),sliderpx2.value(),sliderpx3.value(),sliderpx4.value(),sliderpx5.value(),sliderpx6.value()]; //posiciones iniciales en x
-  PY=[sliderpy1.value(),sliderpy2.value(),sliderpy3.value(),sliderpy4.value(),sliderpy5.value(),sliderpy6.value()]; //posiciones iniciales en y
-  VX=[slidervx1.value(),slidervx2.value(),slidervx3.value(),slidervx4.value(),slidervx5.value(),slidervx6.value()]; //velocidades iniciales en x
-  VY=[slidervy1.value(),slidervy2.value(),slidervy3.value(),slidervy4.value(),slidervy5.value(),slidervy6.value()]; //velocidades iniciales en y
-
-  //crea las bolas y las pone en lugar aleatorio
-  for(let i=0; i<N;i++){
-    //densidad bola billar aprox 6g/cm^3. 
+  //crea las bolas con las condiciones iniciales determinadas por el usuario con los sliders. Para el calculo del radio de las bolas
+  //se usó una densidad para las bolas de billar de aproximadamente 6g/cm^3.
+  for(let i=0; i<N;i++){ 
   balls.push(new ball(i, M[i],20*((3*M[i])/(12.56*6))**(1/3),createVector(PX[i],PY[i]), createVector(VX[i],VY[i])));
   for(let j=0; j<i;j++){
   let di= dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
   if(di<=balls[i].radio){
-  balls[i].pos.x+=2*balls[i].radio;
+  balls[i].pos.x+=2*balls[i].radio; //esta parte del código lo que hace es evitar que dos bolas se intersecten durante la construcción
+                                    // inicial, desplazando alguna de ellas horizontalmente una distancia igual a su diametro.
     }
   
   }
   }
-  //se crea el borde la imagen  
+  //se crea el borde la mesa de billar.
   borde = new border(); 
 }
 
