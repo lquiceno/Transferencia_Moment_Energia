@@ -1,32 +1,21 @@
 let dt = 1/10;
-//si phi=80; //porcentaje de elasticidad 
-//choque completamente elastico phi=100, choque completamente inelastico phi=0
-//Modificacion del main
-
-let balls=[]; //arreglo vacio bolas
-//si N=4; cuatro bolas 
+let balls=[]; 
 let l=150; //altura para mostrar botones
-//crea pantalla
 let R=[];
-let w=window.innerWidth;
-let h=window.innerHeight-l; 
+let w=window.innerWidth; //ancho de la mesa de billar 
+let h=window.innerHeight-l; //altura de la mesa de billar
 let fontsize = 14;
-let table;
+let table; //tabla para guardar datos al final de la simulación
 let p=0;
 let f=6000; //tiene que ver con el tiempo para guardar datos
 
-
-
-
 function setup() {
-//canvas = createCanvas(windowWidth, windowHeight);
-//crea botones para interaccion con usuario
-//aproximadamente 1360px=659--------> 150px=72.7
+canvas = createCanvas(w,h); //crea mesa de billar con ancho y altura w y h respectivamente.
 
-canvas = createCanvas(w,h);
+//construcción de la tabla que guardará las velocidades de las diferentes bolas durante la simulación, inicialmente inicia vacía, solo con las
+//etiquetas de las columnas.
 
 table = new p5.Table();
-
 
 table.addColumn('Velocidad en x Amarilla');
 table.addColumn('Velocidad en y Amarilla');
@@ -49,9 +38,19 @@ table.addColumn('Velocidad en y Rosada');
 
 textSize(fontsize);
 textAlign(LEFT, CENTER);
+//Creación de los cuatro botones que permitirán controlar el desarrollo de la simulación.
+//Restaurar: Permite comenzar de nuevo la simulación con las condiciones iniciales asignadas por el usuario.
+//Parar: Detiene la simulación, las bolas de billar quedan completamente quietas al oprimir este botón.
+//Seguir: Las bolas continuan sus trayectorias con la misma velocidad que llevaban antes de oprimir Parar. Siempre debe oprimirse el boton
+//Seguir después de oprimir Parar para continuar con el desarrollo de la simulación.
+//Salvar: Una vez que en la mesa de billar aparezca el mensaje Datos Guardados, se puede oprimir este botón para guardar los datos de las
+//velocidades de las diferentes bolas durante la simulación.
+//Para los tamaños de los botones, los cuales se hicieron por ensayo y error hasta que estos lucieran estéticos en la pantalla, notamos que 
+//aproximadamente 1360px=659--------> 150px=72.7
+// Cuando se oprime cualquiera de estos botones se ejecuta una función llamada resetSketch que se definirá mas adelante.
 
 button=createButton('Restaurar');
-button.mousePressed(resetSketch);
+button.mousePressed(resetSketch); 
 button.position(1290,475);
 
 button2=createButton('Parar');
@@ -411,7 +410,7 @@ table.clearRows();
 
   balls=[]; //bolas
   N=sliderx.value(); //número bolas
-  phi=slidery.value(); //porcentaje elasticidad
+  phi=slidery.value(); //porcentaje elasticidad //choque completamente elastico phi=100, choque completamente inelastico phi=0
   b=sliderz.value(); //coef. de fricción
   M=[sliderR1.value(),sliderR2.value(),sliderR3.value(),sliderR4.value(),sliderR5.value(),sliderR6.value()];
   PX=[sliderpx1.value(),sliderpx2.value(),sliderpx3.value(),sliderpx4.value(),sliderpx5.value(),sliderpx6.value()]; //posiciones iniciales en x
