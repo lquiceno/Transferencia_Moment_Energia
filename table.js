@@ -6,7 +6,7 @@ let w=window.innerWidth; //ancho de la mesa de billar
 let h=window.innerHeight-l; //altura de la mesa de billar
 let fontsize = 14;
 let table; //tabla para guardar datos al final de la simulación
-let p=0;
+let p=0; // necesario para llevar conteo del tiempo
 let f=6000; //tiene que ver con el tiempo para guardar datos
 
 function setup() {
@@ -46,7 +46,7 @@ textAlign(LEFT, CENTER);
 //Salvar: Una vez que en la mesa de billar aparezca el mensaje Datos Guardados, se puede oprimir este botón para guardar los datos de las
 //velocidades de las diferentes bolas durante la simulación.
 //Para los tamaños de los botones, los cuales se hicieron por ensayo y error hasta que estos lucieran estéticos en la pantalla.
-// Cuando se oprime cualquiera de estos botones se ejecuta una función llamada resetSketch que se definirá mas adelante.
+// Cuando se oprime el boton Restaurar se ejecuta una función llamada resetSketch que se definirá mas adelante.
 
 button=createButton('Restaurar');
 button.mousePressed(resetSketch); 
@@ -437,17 +437,20 @@ table.clearRows();
 }
 
 function draw() {
-  translate(w/2,h/2);
+  translate(w/2,h/2); //Define el centro de coordenadas en el centro de la mesa de billar
   background(128,64,0);
   borde.mostrar();
   fill(0);
-  text("x", w/2-30, 15);
+  text("x", w/2-30, 15); //etiquetas de los ejes horizontal y vertical
   text("y", 15,h/2-30);
+
+ //esta parte es un contador, que da un tiempo al usuario para establecer los parametros iniciales antes de guardar
+ //los datos de las velocidades de las bolas de billar y le informa cuando los datos fueron guardados exitosamente.
 if(p>f+26){
   text("Datos Guardados", w/2-130, h/2-30);
 }
 if(p<6026){
-text(p, w/2-50, h/2-17);
+text(p/100 + "s", w/2-50, h/2-17); 
 }
    //for recorre numero de bolas
   for(let i=0; i<N;i++){
@@ -458,7 +461,8 @@ text(p, w/2-50, h/2-17);
     //cambia movimiento de las bolas segun su radio
     let dis=dist(balls[i].pos.x,balls[i].pos.y,balls[j].pos.x,balls[j].pos.y);
     if(i !==j && dis<=balls[i].radio+balls[j].radio){ // condicion si dos bolas chocan
-    inelasticballscollision(balls[i],balls[j]);
+    inelasticballscollision(balls[i],balls[j]); // aplica las reglas de conservacion de momento para predecir las velocidades de las dos bolas
+                                                // después del choque entre ellas.
       }
     }
 
@@ -468,31 +472,32 @@ text(p, w/2-50, h/2-17);
 
 for(let i=0; i<N; i++){
 
-  if(balls[i].vel.x==0 && balls[i].vel.y==0){
+  if(balls[i].vel.x==0 && balls[i].vel.y==0){ //condicion para bola en reposo (antes de iniciar simulación por ejemplo)
 
     
 
-      drawArrow(balls[i].pos,createVector(VX[i],VY[i]),'black',3);
+      drawArrow(balls[i].pos,createVector(VX[i],VY[i]),'black',3); //dibuja el vector velocidad inicial que el usuario determina con los sliders.
     
     
   }else {
 
-    drawArrow(balls[i].pos,balls[i].vel,'black',3);
+    drawArrow(balls[i].pos,balls[i].vel,'black',3); //dibuja el vector velocidad de las bolas, a medida que transcurre el tiempo y se
+                                                    //desarrolla la simulacion.
   }
 
 } 
 
 
-drawArrow(createVector(-w/2+10,0),createVector(w-22,0),'black',2);
-drawArrow(createVector(0,-h/2+10),createVector(0,h-22),'black',2);
-
-
-//tabla de velocidades para bola amarilla
+drawArrow(createVector(-w/2+10,0),createVector(w-22,0),'black',2); //dibuja el eje x horizontal
+drawArrow(createVector(0,-h/2+10),createVector(0,h-22),'black',2); //dibuja el eje y vertical
 
 
 //esto quiere decir que el usuario tiene 1 min aprox. para ingresar datos, despues de los cuales se empezará a medir velocidades.
-if(f<p && p<f+26){
+if(f<p && p<f+26){ //solo en este pequeño intervalo se toman los datos de las velocidades de las bolas, ya que si incrementamos el tiempo
+                   //durante el cual se toman datos, la tabla no consigue guardar tal cantidad.
 table.addRow();
+//Proceso de guardar velocidades en la tabla, en el caso que solo una bola esté presente. Similarmente se guardan los datos en los demás casos
+//cuando se cambia el numero de bolas.
 if(N==1){
   table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
   table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
@@ -506,7 +511,7 @@ table.getRow(p-f-1).setString('Velocidad en x Naranja', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en y Naranja', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
-} else if(N==2){
+} else if(N==2){ //Procedimento para guardar datos en el caso de dos bolas
   table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
   table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
   table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
@@ -519,7 +524,7 @@ table.getRow(p-f-1).setString('Velocidad en x Naranja', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en y Naranja', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
-} else if(N==3){
+} else if(N==3){ //Procedimento para guardar datos en el caso de tres bolas
   table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
   table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
   table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
@@ -533,7 +538,7 @@ table.getRow(p-f-1).setString('Velocidad en y Naranja', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
 
-} else if(N==4){
+} else if(N==4){//Procedimento para guardar datos en el caso de cuatro bolas
   table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
   table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
   table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
@@ -548,7 +553,7 @@ table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
 
 } else if (N==5){
-
+ //Procedimento para guardar datos en el caso de cinco bolas
   table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
 table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
 table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
@@ -561,7 +566,7 @@ table.getRow(p-f-1).setNum('Velocidad en x Naranja', balls[4].vel.x);
 table.getRow(p-f-1).setNum('Velocidad en y Naranja', balls[4].vel.y);
 table.getRow(p-f-1).setString('Velocidad en x Rosada', 'Ninguna');
 table.getRow(p-f-1).setString('Velocidad en y Rosada', 'Ninguna');
-} else if (N==6){
+} else if (N==6){ //Procedimento para guardar datos en el caso de seis bolas
 table.getRow(p-f-1).setNum('Velocidad en x Amarilla', balls[0].vel.x);
 table.getRow(p-f-1).setNum('Velocidad en y Amarilla', balls[0].vel.y);
 table.getRow(p-f-1).setNum('Velocidad en x Roja', balls[1].vel.x);
@@ -578,7 +583,7 @@ table.getRow(p-f-1).setNum('Velocidad en y Rosada', balls[5].vel.y);
 
 }
 
-p+=1;
+p+=1; // el parametro p lleva cuenta del numero de frames ejecutados, cada vez que se corre un draw, es decir un frame, el p incrementa en una unidad.
 
 }
 
@@ -589,7 +594,7 @@ let ball = function(i, _mass, _rad, _pos, _vel){
   this.radio = _rad;
   this.pos = _pos;
   this.vel = _vel;
-//switch escoge las bolas para ingresar a cada una caracteristicas
+//switch escoge las bolas para asignar a cada una un color diferente
   this.mostrar = function() {
     noStroke(); //elimina el borde negro
     switch (i) { //para diferentes colores de las bolas
@@ -619,7 +624,7 @@ let ball = function(i, _mass, _rad, _pos, _vel){
 //funcion movimiento la cual cambia posicion usando ec. Cinematica x = vt
   this.movimiento = function(){
     beta = b*dt/this.mass; //fricción si b diferente de 0
-    this.vel.x = (1.0 - beta)*this.vel.x;
+    this.vel.x = (1.0 - beta)*this.vel.x; 
     this.vel.y = (1.0 - beta)*this.vel.y;
     this.pos.x += this.vel.x*dt;
     this.pos.y += this.vel.y*dt;
@@ -637,6 +642,8 @@ if ((this.pos.y<-h/2+10+this.radio) || (this.pos.y>h/2-10-this.radio)){
 }
 
 inelasticballscollision=function(object1,object2){
+
+//los calculos de esta funcion siguen al pie de la letra las ecuaciones deducidas en el artículo y guía de colisiones, en el pdf adjunto a este codigo.
 let d=dist(object1.pos.x,object1.pos.y,object2.pos.x,object2.pos.y);
 let u= createVector((object1.pos.x-object2.pos.x)/(d),(object1.pos.y-object2.pos.y)/(d));
 let s= createVector((object1.vel.x-object2.vel.x)/(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y)),(object1.vel.y-object2.vel.y)/(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y)));
@@ -664,39 +671,9 @@ object2.vel.y-=(a/object2.mass)*u.y;
 }
 }
 
-/*
-MostGeneralCollision=function(object1,object2){
-  //ANALISIS SIN CONSERVACION DEL MOMENTO, CUANDO SE LLAMA NO PARECE DAR UN RESULTADO FÍSICAMENTE VIABLE.
-  let d=dist(object1.pos.x,object1.pos.y,object2.pos.x,object2.pos.y);
-  let u= createVector((object1.pos.x-object2.pos.x)/(d),(object1.pos.y-object2.pos.y)/(d));
-  //let s= createVector((object1.vel.x-object2.vel.x)/(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y)),(object1.vel.y-object2.vel.y)/(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y)));
-  let kmin=sqrt(sq(dist(object1.vel.x*(1-(b/object1.mass)),object1.vel.y*(1-(b/object1.mass)),object2.vel.x*(1-(b/object2.mass)),object2.vel.y*(1-(b/object2.mass))))-sq((u.x*((1-(b/object1.mass))*object1.vel.x-(1-(b/object2.mass))*object2.vel.x))+(u.y*((1-(b/object1.mass))*object1.vel.y-(1-(b/object2.mass))*object2.vel.y))))/dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y);
-  let k=(phi/100)+((1-(phi/100))*kmin);
-  let A= sq((object1.mass+object2.mass)/(object1.mass*object2.mass));
-  let B=2*((object1.mass+object2.mass)/(object1.mass*object2.mass))*((((1-(b/object1.mass))*object1.vel.x-(1-(b/object2.mass))*object2.vel.x)*u.x)+(((1-(b/object1.mass))*object1.vel.y-(1-(b/object2.mass))*object2.vel.y)*u.y));
-  let C=sq(dist(object1.vel.x*(1-(b/object1.mass)),object1.vel.y*(1-(b/object1.mass)),object2.vel.x*(1-(b/object2.mass)),object2.vel.y*(1-(b/object2.mass))))-sq(k)*sq(dist(object1.vel.x,object1.vel.y,object2.vel.x,object2.vel.y));
-  let D=sq(B)-4*A*C;
-  if(D<0){
-    object1.vel.x=0;
-    object1.vel.y=0;
-    object2.vel.x=0;
-    object2.vel.y=0;
-  }else{
-  let a1=(-B+sqrt(sq(B)-4*A*C))/(2*A);
-  let a2=(-B-sqrt(sq(B)-4*A*C))/(2*A); 
-  let a=max(a1,a2);
-   
-  object1.vel.x=((1-(b/object1.mass))*object1.vel.x)+(a/object1.mass)*u.x;
-  object1.vel.y=((1-(b/object1.mass))*object1.vel.y)+(a/object1.mass)*u.y;
-  object2.vel.x=((1-(b/object2.mass))*object2.vel.x)-(a/object2.mass)*u.x;
-  object2.vel.y=((1-(b/object2.mass))*object2.vel.y)+(a/object2.mass)*u.y;
-    
-  }
-  }
-*/
 
 let border = function(){
-  //funcion mostrar para aparecer el lienzo 
+  //funcion mostrar para aparecer el borde de la mesa de billar 
   this.mostrar = function() {
     //noStroke(); //elimina el borde negro
     fill(0,143,57);
@@ -709,17 +686,17 @@ let border = function(){
 
  function Parar(){
 
-  noLoop();
+  noLoop(); // funcion Parar, detiene la ejecucion del bucle Draw y por tanto de la simulacion.
 
  }
 
  function Seguir(){
 
-  loop();
+  loop(); // función Seguir, reanuda la ejecucion del bucle Draw y por tanto permite continuar la simulacion.
 
  }
 
- //Dibuja un vector, basado en la referencia de p5
+ //Dibuja un vector con origen en base, direccion vec, color myColor y tamaño de la punta size (caracter solo estetico), basado en la referencia de p5
  function drawArrow(base, vec, myColor,size) {
   push();
   stroke(myColor);
