@@ -1,7 +1,6 @@
 let dt = 1/10;
 let balls=[]; //lista vacía que guardará información de las bolas.
 let l=150; //altura para mostrar botones
-let R=[];
 let w=window.innerWidth; //ancho de la mesa de billar 
 let h=window.innerHeight-l; //altura de la mesa de billar
 let fontsize = 14;
